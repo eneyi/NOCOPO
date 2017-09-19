@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Open Contract App</title>
+ 
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+
+   
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+
+
+  <!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+  </head>
+
+
+
+
+  
+
+
+
+ 
+  <body>
+
+
+
+
+    
+
+
+ 
+
+     
+  
+ 
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li>
+                   <li role="presentation" class="p"><a href="/">Home</a>
+               </li>
+               <li>
+                   <li role="presentation" class="page-scroll"><a href="/showSignin">Sign In</a>
+               </li>
+               <li>
+                   <li role="presentation" class="active"><a href="#">Sign Up</a>
+               </li>
+                
+          </ul>
+        </nav>
+        <h3 class="text-muted">Open Contract App</h3>
+      </div>
+ 
+
+
+
+<div class="container-fluid">
+       <div class="row">
+         <div class="col-sm-10 col-sm-offset-1 text-center container">
+           <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Registration<span style="color:lightgreen;">Form</span></h1>
+           <br />
+         </div>
+       </div>
+     </div>
+
+
+
+
+<br>
+<br>
+{% if error %}
+      <p><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+
+
+      <div class="jumbotron">
+    
+
+
+
+       
+
+
+       <form class="form-horizontal" action="/signUp" method="post" >
+
+
+
+   <fieldset>
+
+
+
+<br>
+<center>
+<h4>Basic Data</h4>
+</center>
+<br>
+
+
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="ministry_name">Ministry / Parastatal</label>
+         <div class="col-md-4">
+         <input id="ministry_name" name="ministry_name" type="text" placeholder="Ministry / Parastatal" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">Name of Parastatal/Ministry e.g Ministry of Education</span>
+          <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_name">Agency Name</label>
+         <div class="col-md-4">
+         <input id="agency_name" name="agency_name" type="text" placeholder="Agency Name" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">Name of Agency within Ministry e.g University of Ilorin</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_abb">Agency Abbreviation</label>
+         <div class="col-md-4">
+         <input id="agency_abb" name="agency_abb" type="text" placeholder="Agency Abbreviation" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">Abbreviation For Agency e.g moe_uniilorin</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+       
+
+
+<br>
+<center>
+<h4>Agency Address</h4>
+</center>
+<br>
+
+
+       <hr>
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="state">Agency State</label>
+         <div class="col-md-4">
+           <select id="state" name="state" class="form-control">
+            <option value="">Choose State:</option>
+            <option value="Abuja/FCT">Abuja</option>
+            <option value="Abia">Abia</option>
+            <option value="Adamawa">Adamawa</option>
+            <option value="Akwaibom">Akwa Ibom</option>
+            <option value="Anambra">Anambra</option>
+            <option value="Bauchi">Bauchi</option>
+            <option value="Bayelsa">Bayelsa</option>
+            <option value="Benue">Benue</option>
+            <option value="Borno">Borno</option>
+            <option value="Cross River">Cross River</option>
+            <option value="Delta">Delta</option>
+            <option value="Ebonyi">Ebonyi</option>
+            <option value="Edo">Edo</option>
+            <option value="Ekiti">Ekiti</option>
+            <option value="Enugu">Enugu</option>
+            <option value="Gombe">Gombe</option>
+            <option value="Imo">Imo</option>
+            <option value="Jigawa">Jigawa</option>
+            <option value="Kaduna">Kaduna</option>
+            <option value="Kano">Kano</option>
+            <option value="Katsina">Katsina</option>
+            <option value="Kebbi">Kebbi</option>
+            <option value="Kogi">Kogi</option>
+            <option value="Kwara">Kwara</option>
+            <option value="Lagos">Lagos</option>
+            <option value="Nassarawa">Nassarawa</option>
+            <option value="Niger">Niger</option>
+            <option value="Ogun">Ogun</option>
+            <option value="Ondo">Ondo</option>
+            <option value="Osun">Osun</option>
+            <option value="Oyo">Oyo</option>
+            <option value="Plateau">Plateau</option>
+            <option value="Rivers">Rivers</option>
+            <option value="Sokoto">Sokoto</option>
+            <option value="Taraba">Taraba</option>
+            <option value="Yobe">Yobe</option>
+            <option value="Zamfara">Zamfara</option>
+           </select>
+             <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_locality">Agency Locality/City</label>
+         <div class="col-md-4">
+         <input id="agency_locality" name="agency_locality" type="text" placeholder="City" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">Lekki</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_street">Agency Street Address</label>
+         <div class="col-md-4">
+         <input id="agency_street" name="agency_street" type="text" placeholder="Street" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">11 Bankonle Road</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+       
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_street">Country</label>
+         <div class="col-md-4">
+         <input id="country" name="country" type="text" placeholder="Country" class="form-control input-md" required="" onblur="myFunction()">
+         <span class="help-block">e.g., Nigeria</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+
+       <hr>
+
+
+
+
+
+<br>
+<center>
+<h4>Agency Contact Information</h4>
+</center>
+<br>
+
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="contactphone">Agency Contact Phone</label>
+         <div class="col-md-4">
+         <input id="contactphone" name="contactphone" type="text" placeholder="Phone Number" class="form-control input-md" required="">
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="contactemail">Email</label>
+         <div class="col-md-4">
+         <input id="contactemail" name="contactemail" type="email" placeholder="Email Address" class="form-control input-md" required="">
+        <span class="help-block">agency@..org</span>
+          <span class="help-block">Mandatory</span>
+
+         </div>
+       </div>
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="fax">Agency Contact Fax</label>
+         <div class="col-md-4">
+         <input id="fax" name="fax" type="tel" placeholder="Agency Fax" class="form-control input-md" required="">
+           <span class="help-block">Optional</span>
+         </div>
+       </div>
+
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="url">Agency Website</label>
+         <div class="col-md-4">
+         <input id="url" name="url" type="text" placeholder="Website" class="form-control input-md" required="">
+         <span class="help-block">www.agency.com</span>
+           <span class="help-block">Optional</span>
+         </div>
+       </div>
+
+
+
+
+
+<br>
+<center>
+<h4>Agency Credentials</h4>
+</center>
+<br>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="username">Username</label>
+         <div class="col-md-4">
+         <input id="username" name="username" type="text" placeholder="Username" class="form-control input-md" required="">
+         <span class="help-block">agric_min</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="password">Agency Password</label>
+         <div class="col-md-4">
+         <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">
+         <span class="help-block">#opoikdnbdb</span>
+           <span class="help-block">Mandatory</span>
+         </div>
+       </div>
+
+
+
+
+
+
+
+       <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+           <button style="width:600px" id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+           </div>
+       </div>
+
+       <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+           <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+           </div>
+       </div>
+
+      
+       </fieldset>
+
+       </form>
+
+
+
+
+      </div>
+ 
+       
+ 
+      <footer class="footer">
+        <p>&copy; Company 2016</p>
+      </footer>
+ 
+    </div>
+ 
+
+
+    <script>
+function myFunction() {
+    var x = document.getElementById("ministry_name");
+    x.value = x.value.toUpperCase();
+
+     var y = document.getElementById("agency_name");
+    y.value = y.value.toUpperCase();
+    
+    var z = document.getElementById("agency_abb");
+    z.value = z.value.toUpperCase();
+
+    var a = document.getElementById("action_party");
+    a.value = a.value.toUpperCase();
+
+    var b = document.getElementById("action_party_role");
+    b.value = b.value.toUpperCase();
+
+
+    var c = document.getElementById("champions");
+    c.value = c.value.toUpperCase();
+
+
+    var d = document.getElementById("champions_role");
+    d.value = d.value.toUpperCase();
+
+
+     var k = document.getElementById("agency_locality");
+    k.value = k.value.toUpperCase();
+
+
+
+var u = document.getElementById("country");
+u.value = u.value.toUpperCase();
+
+
+     var l = document.getElementById("agency_street");
+    l.value = l.value.toUpperCase();
+
+    }
+  </script>
+
+
+
+
+  </body>
+</html>

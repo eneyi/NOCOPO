@@ -1,0 +1,143 @@
+{% extends 'layouts/listings.html' %}
+{% block title %}NOCOPO| Legal Buyers {% endblock %}
+{% block style %}
+    <link href="static/css/contracts.css" type="text/css" rel="stylesheet"/>
+    <style>
+    *{font-family:Verdana, Arial, sans-serif;}
+        .titled {
+            font-weight: bolder;
+            color: #355555;
+            padding-left: 5px;
+        }
+
+        .describe {
+            padding: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            text-align: justify;
+            color: darkgoldenrod;
+            font-family: monospace;
+        }
+
+        .sub {
+            color: #355555;
+            font-weigh: bolder;
+        }
+
+        label {
+            color: #355555;
+            font-weight: bolder;
+            font-size: 12px;
+        }
+
+        .title.title {
+            color: #355555;
+            font-weight: bolder;
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        .naira {
+            color: green;
+            font-size: 14px;
+        }
+
+        .number {
+            color: crimson;
+            font-size: 14px;
+        }
+
+        .agency {
+            color: brown;
+            font-size: 14px;
+        }
+
+        .contractor {
+            color: darkgreen;
+            font-size: 14px;
+        }
+
+        .sub {
+            text-indent: 20px;
+        }
+        .sub span{color:darkgoldenrod;font-size:12px;}
+
+        .subsub {
+            text-indent: 70px;
+        }
+    .subsub span{color:#355555;font-size:12px;}
+    </style>
+
+{% endblock %}
+{% block headerheight %}height:300px{% endblock %}
+{% block pagetitle %}
+    <h1 class="wow fadeIn" style="font-size:3em;padding-top:80px;"><span style="color:lightgreen;">Nigeria</span>OpenContract<span
+            style="color:lightgreen;">Agencies</span></h1>{% endblock %}
+
+
+{% block sidebar %}
+    {% include 'layouts/sidebarcontact.html' %}
+
+
+{% endblock %}
+<hr>
+{% block listings %}
+
+
+    {% for trial in agents %}
+        {% set rowloop = loop %}
+
+
+
+
+
+
+
+
+        <div class="cma list-group list-group-root well">
+
+
+            <a href="#" class="/list-group-item list-group-item-success" data-toggle="collapse">
+                <span class="titled">{{ trial._id | title }} </span>
+            </a>
+            <a href="#" class="list-group-item" data-toggle="collapse">
+                <span class="titled">Total Number of Contracts Awarded:  {{ trial.contractors | sum(attribute='times') }} </span>
+            </a>
+            <a href="#" class="list-group-item" data-toggle="collapse">
+                <span class="titled">Total Amount Disbursed:  N{{ trial.contractors | sum(attribute='total') }} </span>
+            </a>
+					<a href="#" class="list-group-item" data-toggle="collapse">
+                <span class="titled" style="width:70%;">Contractor Use Spread / Contract Hoarding Index: {{ trial.contractors | length / trial.contractors | sum(attribute='times')| int * 100}}%</span>
+            </a>
+            <a href="#item-{{ loop.index }}" class="list-group-item" data-toggle="collapse">
+                <span class="titled" style="width:70%;"><i class="fa fa-chevron-right"></i>  Contractors in Portfolio: {{ trial.contractors | length }}</span>
+            </a>
+            <div class="list-group collapse" id="item-{{ loop.index }}">
+                {% for contractor in trial.contractors %}
+                    {% for cont in contractor.contractor | sort(attribute='times')%}
+
+                            <a href="#item-{{ rowloop.index }}-{{ repl(cont[0], ' ', '-') }}" class="list-group-item sub" data-toggle="collapse">
+                                <span class="titled" style="width:70%;"><i class="fa fa-chevron-right"></i>  {{ cont[0] | title }}</span>
+                            </a>
+
+                        <div class="list-group collapse" id="item-{{ rowloop.index }}-{{ repl(cont[0], " ", "-") }}">
+                            <a href="#" class="list-group-item subsub" data-toggle="collapse">
+                                <span class="titled">Total Number Contracts Undertaken: {{ contractor.times }} </span>
+                            </a>
+                            <a href="#" class="list-group-item subsub" data-toggle="collapse">
+                                <span class="titled">Total Amount Disbursed: N{{ contractor.total }} </span>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+
+
+
+{% endblock %}

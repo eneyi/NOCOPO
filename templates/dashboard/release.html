@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+
+
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+
+
+                    </li>
+                    <li role="presentation"><a href="/">Home</a>
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                  
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                     <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedAward">Awards</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedContract">Contracts</a>
+                            </li>
+
+
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+
+
+
+
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Release<span style="color:lightgreen;">Form</span></h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <br>
+        <br> {% if error %}
+        <p><strong>Error:</strong> {{ error }} {% endif %}
+
+
+
+            <div class="jumbotron">
+
+
+
+
+                <form class="form-horizontal" action="/addRelease" method="post">
+
+
+
+                    <fieldset>
+
+
+
+                        <hr>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tag">Release Tag/Stage</label>
+                            <div class="col-md-4">
+                                <select id="tag" name="tag" class="form-control">
+            <option value="">Release Tag/Stage:</option>
+            <option value="Planning">Planning</option>
+            <option value="Tender">Tender</option>
+            <option value="Tender Amendment">Tender Amendment</option>
+            <option value="Tender Update">Tender Update</option>
+            <option value="Tender Cancellation">Tender Cancellation</option>
+            <option value="Award">Award</option>
+            <option value="Award Update">AwardUpdate</option>
+            <option value="Award Cancellation">Award Cancellation</option>
+            <option value="Contract">Contract</option>
+            <option value="Contract Update">Contract Update</option>
+            <option value="Contract Amendment">Contract Amendment</option>
+            <option value="Implementation">Implementation</option>
+            <option value="Implementation Update">Implementation Update</option>
+            <option value="Contract Terminated">Contract Terminated</option>
+            <option value="Compiled">Compiled</option>
+           </select>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="description">Project Description</label>
+                            <div class="col-md-4">
+                                <input id="description" name="description" type="text" placeholder="Project Description" class="form-control input-md" required="" onblur="myFunction()">
+                                <span class="help-block">Short description of the release/project</span>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="url">Project Website</label>
+                            <div class="col-md-4">
+                                <input id="url" name="url" type="text" placeholder="Project Website" class="form-control input-md" required="">
+                                <span class="help-block">www.releaseproject.com</span>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="createRelease" class="btn btn-lg btn-primary btn-block" type="submit">Submit Release</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </fieldset>
+
+
+
+                </form>
+
+
+
+
+
+
+            </div>
+
+
+
+            <footer class="footer">
+                <p>&copy; Company 2016</p>
+            </footer>
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

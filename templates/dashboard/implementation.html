@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+
+
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+
+
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                    <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Implementation<span style="color:lightgreen;">Form</span></h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+ 
+
+  <br>
+        <br> {% if error %}
+        <p><strong>Error:</strong> {{ error }} {% endif %} {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+
+
+
+            <div class="jumbotron">
+
+
+
+
+                <form class="form-horizontal" action="/newImplementation" method="post">
+
+
+
+                    <fieldset>
+
+
+
+                        <hr>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="url">Amount Paid as at Date (NGN)</label>
+                            <div class="col-md-4">
+                                <input id="amount" name="amount" type="number" placeholder="Amount Paid as at Date (NGN)" class="form-control input-md" required="">
+                                <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="status">Project Status as at date</label>
+                            <div class="col-md-4">
+                                <select id="status" name="status" class="form-control">
+            <option value="">Project Status as at date:</option>
+            <option value="Not yet commenced">Not yet commenced</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Suspended">Suspended</option>
+            <option value="Completed">Completed</option>
+            
+           </select>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Completion">% Completion as at date</label>
+                            <div class="col-md-4">
+                                <input id="Completion" name="Completion" type="number" min="0" max="100" step="5" placeholder="% Completion as at date" class="form-control input-md" required="">
+
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="url">Final Cost (NGN)</label>
+                            <div class="col-md-4">
+                                <input id="finalcost" name="finalcost" type="number" placeholder="Final Cost" class="form-control input-md" required="">
+                                <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Variation">Variation?</label>
+                            <div class="col-md-4">
+                                <select id="Variation" name="Variation" class="form-control">
+            <option value="">Variation?:</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            
+           </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="bppref">BPP Reference No. for Variation</label>
+                            <div class="col-md-4">
+                                <input id="bppapproval" name="bppapproval" type="text" placeholder="BPP Approval for Variation" class="form-control input-md" required="">
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="variationamt">Variation Amount</label>
+                            <div class="col-md-4">
+                                <input id="variationamt" name="variationamt" type="number" placeholder="Variation Amount" class="form-control input-md" required="">
+                                <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="totalrevamt">Total Revised Estimated Contract Amount</label>
+                            <div class="col-md-4">
+                                <input id="totalrevamt" name="totalrevamt" type="number" placeholder="Total Revised Estimated Contract Amount" class="form-control input-md" required="">
+                                <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="createRelease" class="btn btn-lg btn-primary btn-block" type="submit">Submit Implementation</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </fieldset>
+
+
+
+                </form>
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+            <footer class="footer">
+                <p>&copy; Company 2016</p>
+            </footer>
+
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#Variation').on('change.states', function() {
+                $("#bppapproval").toggle($(this).val() == 'Yes');
+                $('label[for="bppref"]').toggle($(this).val() == 'Yes');
+            }).trigger('change.states');
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

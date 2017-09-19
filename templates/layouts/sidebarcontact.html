@@ -1,0 +1,74 @@
+<form action="#">
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="quicksearch">
+        <label class="mdl-textfield__label" for="search1">Search......</label>
+    </div>
+</form>
+
+
+<h5>Contact BPP</h5>
+<form action="/contact">
+
+    {% with messages = get_flashed_messages() %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Notice</strong><br>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="[A-Z,a-z]*"
+               id="firstname" name="firstname">
+        <label class="mdl-textfield__label" for="firstname">Firstname</label>
+        <span class="mdl-textfield__error">Only alphabet and no spaces, please!</span>
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="[A-Z,a-z]*"
+               id="lastname" name="lastname">
+        <label class="mdl-textfield__label" for="lastname">Lastname</label>
+        <span class="mdl-textfield__error">Only alphabet and no spaces, please!</span>
+
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="[A-Z,a-z]*"
+               id="organization" name="organization">
+        <label class="mdl-textfield__label" for="organization">Organization</label>
+        <span class="mdl-textfield__error"></span>
+
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="+234[0-9]*"
+               id="phone" name="phone">
+        <label class="mdl-textfield__label" for="phone">Phone</label>
+        <span class="mdl-textfield__error">+234..</span>
+
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="*@.*" id="email" name="email">
+        <label class="mdl-textfield__label" for="email">Email</label>
+        <span class="mdl-textfield__error">Must contain a valid email address</span>
+
+    </div>
+    <br>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="[A-Z,a-z,0-9]*" id="subject" name="subject">
+        <label class="mdl-textfield__label" for="subject">Subject</label>
+
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+                                            <textarea class="mdl-textfield__input" type="text" rows="3"
+                                                      id="message" name="message"></textarea>
+        <label class="mdl-textfield__label" for="text7">Message</label>
+    </div>
+    <input type="submit" value="Send">
+
+</form>

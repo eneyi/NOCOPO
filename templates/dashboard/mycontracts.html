@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <!-- narrow
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+-->
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+    <meta charset="utf-8">
+
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+    <!-- using bootstrap list-group to display our items dynamically -->
+
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+    <script>
+        //update database for particular plans with data added to form in above script and reload plans
+
+
+
+        /** $(function() {
+
+          GetContracts((1);
+
+        });
+ */
+
+
+        $(function() {
+
+            GetContracts(1);
+
+
+
+            //automatically add years to search drop down 
+            var min = 2002;
+            var max = 2030;
+            /**
+                        for (var i = min; i <= max; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = i;
+                            opt.innerHTML = i;
+                            document.getElementById('contractStart').appendChild(opt);
+
+                        }
+
+                        for (var i = min; i <= max; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = i;
+                            opt.innerHTML = i;
+                            document.getElementById('contractEnd').appendChild(opt);
+
+                        }
+                        */
+
+
+            //update contract status button
+            $('#btnUpdate').click(function() {
+                $.ajax({
+                    url: '/updateContract',
+                    data: {
+
+                        status: $('#edittag :selected').text(),
+                        id: localStorage.getItem('editId')
+
+                    },
+                    type: 'POST',
+                    success: function(res) {
+                        $('#updateModal').modal('hide');
+
+
+                        // Re populate the grid
+                        //GetReleases();
+                        GetContracts(1);
+                        //Refresh data from server
+                        //location.reload(true);
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+
+
+            //new implementation button
+            $('#btnStart').click(function() {
+                $.ajax({
+                    url: '/newImplementation',
+                    data: {
+
+                        id: localStorage.getItem('editId'),
+                        variationYesOrNo: document.getElementById('Variation').value,
+                        variationamountt: document.getElementById('variationamt').value,
+                        totalValue: document.getElementById('totalrevamt').value,
+                        bppapprovalNumber: document.getElementById('bppapproval').value
+
+
+                    },
+                    type: 'POST',
+                    success: function(res) {
+                        $('#newimplementation').modal('hide');
+
+
+                        // Re populate the grid
+                        //GetReleases();
+                        GetContracts(1);
+                        //Refresh data from server
+                        //location.reload(true);
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //implementation completion update button
+            $('#btnCompl').click(function() {
+                $.ajax({
+                    url: '/updateImplementation',
+                    data: {
+
+                        id: localStorage.getItem('editId'),
+                        amount: document.getElementById('amount').value,
+                        status: document.getElementById('status').value,
+                        projcompletion: document.getElementById('Completion').value,
+                        finalcost: document.getElementById('finalcost').value
+
+                    },
+                    type: 'POST',
+                    success: function(res) {
+                        $('#updateimplementation').modal('hide');
+
+
+                        // Re populate the grid
+                        //GetReleases();
+                        GetContracts(1);
+                        //Refresh data from server
+                        //location.reload(true);
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+
+        });
+
+
+
+
+
+        //http://open.canada.ca/search/contracts
+        function searchContracts(_page) {
+
+            var _offset = (_page - 1) * 2;
+            $.ajax({
+                url: '/contractSearch',
+                type: 'POST',
+                data: {
+
+                    searchString: document.getElementById('searchstring').value,
+                    // startDate: document.getElementById('contractStart').value,
+                    //endDate: document.getElementById('contractEnd').value,
+
+                    offset: _offset
+                },
+                success: function(res) {
+                    console.log(res);
+
+                    var itemsPerPage = 2;
+
+                    var releaseObj = JSON.parse(res);
+
+
+                    $('#ulist').empty();
+                    $('#listTemplate').tmpl(releaseObj[0]).appendTo('#ulist');
+                    var total = releaseObj[1]['total'];
+
+
+
+                    var pageCount = total / itemsPerPage;
+                    var pageRem = total % itemsPerPage;
+                    if (pageRem != 0) {
+                        pageCount = Math.floor(pageCount) + 1;
+
+                    }
+
+                    $('.pagination').empty();
+                    var pageStart = $('#hdnStart').val();
+                    var pageEnd = $('#hdnEnd').val();
+
+
+                    if (pageStart > 5) {
+                        var aPrev = $('<a/>').attr({
+                                'href': '#'
+                            }, {
+                                'aria-label': 'Previous'
+                            })
+                            .append($('<span/>').attr('aria-hidden', 'true').html('&laquo;'));
+                        $(aPrev).click(function() {
+                            $('#hdnStart').val(Number(pageStart) - 5);
+                            $('#hdnEnd').val(Number(pageStart) - 5 + 4);
+                            searchContracts(Number(pageStart) - 5);
+                        });
+                        var prevLink = $('<li/>').append(aPrev);
+                        $('.pagination').append(prevLink);
+                    }
+
+
+
+                    for (var i = Number(pageStart); i <= Number(pageEnd); i++) {
+
+                        if (i > pageCount) {
+                            break;
+                        }
+
+                        var aPage = $('<a/>').attr('href', '#').text(i);
+
+                        $(aPage).click(function(i) {
+                            return function() {
+                                searchContracts(i);
+                            }
+                        }(i));
+                        var page = $('<li/>').append(aPage);
+                        if ((_page) == i) {
+                            $(page).attr('class', 'active');
+                        }
+
+                        $('.pagination').append(page);
+
+
+                    }
+                    if ((Number(pageStart) + 5) <= pageCount) {
+                        var nextLink = $('<li/>').append($('<a/>').attr({
+                                'href': '#'
+                            }, {
+                                'aria-label': 'Next'
+                            })
+                            .append($('<span/>').attr('aria-hidden', 'true').html('&raquo;').click(function() {
+                                $('#hdnStart').val(Number(pageStart) + 5);
+                                $('#hdnEnd').val(Number(pageStart) + 5 + 4);
+                                searchContracts(Number(pageStart) + 5);
+
+                            })));
+                        $('.pagination').append(nextLink);
+                    }
+
+
+
+
+
+                },
+                error: function(error) {
+                    console.log(error);
+
+
+                    document.getElementById("errorDIV").innerHTML = 'No results found';
+
+
+
+
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+        //get all plans from DB
+
+
+        function GetContracts(_page) {
+
+            var _offset = (_page - 1) * 2;
+            $.ajax({
+                url: '/getContracts',
+                type: 'POST',
+                data: {
+                    offset: _offset
+                },
+                success: function(res) {
+                    console.log(res);
+
+                    var itemsPerPage = 2;
+
+                    var releaseObj = JSON.parse(res);
+
+                    $('#ulist').empty();
+                    $('#listTemplate').tmpl(releaseObj[0]).appendTo('#ulist');
+                    var total = releaseObj[1]['total'];
+                    var pageCount = total / itemsPerPage;
+                    var pageRem = total % itemsPerPage;
+                    if (pageRem != 0) {
+                        pageCount = Math.floor(pageCount) + 1;
+
+                    }
+
+                    $('.pagination').empty();
+                    var pageStart = $('#hdnStart').val();
+                    var pageEnd = $('#hdnEnd').val();
+
+
+                    if (pageStart > 5) {
+                        var aPrev = $('<a/>').attr({
+                                'href': '#'
+                            }, {
+                                'aria-label': 'Previous'
+                            })
+                            .append($('<span/>').attr('aria-hidden', 'true').html('&laquo;'));
+                        $(aPrev).click(function() {
+                            $('#hdnStart').val(Number(pageStart) - 5);
+                            $('#hdnEnd').val(Number(pageStart) - 5 + 4);
+                            GetContracts(Number(pageStart) - 5);
+                        });
+                        var prevLink = $('<li/>').append(aPrev);
+                        $('.pagination').append(prevLink);
+                    }
+
+
+
+                    for (var i = Number(pageStart); i <= Number(pageEnd); i++) {
+
+                        if (i > pageCount) {
+                            break;
+                        }
+
+                        var aPage = $('<a/>').attr('href', '#').text(i);
+
+                        $(aPage).click(function(i) {
+                            return function() {
+                                GetContracts(i);
+                            }
+                        }(i));
+                        var page = $('<li/>').append(aPage);
+                        if ((_page) == i) {
+                            $(page).attr('class', 'active');
+                        }
+
+                        $('.pagination').append(page);
+
+
+                    }
+                    if ((Number(pageStart) + 5) <= pageCount) {
+                        var nextLink = $('<li/>').append($('<a/>').attr({
+                                'href': '#'
+                            }, {
+                                'aria-label': 'Next'
+                            })
+                            .append($('<span/>').attr('aria-hidden', 'true').html('&raquo;').click(function() {
+                                $('#hdnStart').val(Number(pageStart) + 5);
+                                $('#hdnEnd').val(Number(pageStart) + 5 + 4);
+                                GetContracts(Number(pageStart) + 5);
+
+                            })));
+                        $('.pagination').append(nextLink);
+                    }
+
+
+
+
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+
+
+
+
+
+
+
+        //get a partifular release via id/OCID info and populte edit form/modal with it 
+        function Edit(elm) {
+
+            localStorage.setItem('editId', $(elm).attr('data-id'));
+
+            $.ajax({
+                url: '/getContractById',
+                data: {
+                    id: $(elm).attr('data-id')
+                },
+                type: 'POST',
+                success: function(res) {
+                    console.log(res);
+
+                    // Parse the received JSON string
+                    var data = JSON.parse(res);
+
+                    //Populate the Pop up
+
+                    $('#edittag').val(data[0]['contract_status']).change();
+
+
+
+                    // Trigger the Pop Up
+                    $('#updateModal').modal();
+
+
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+
+
+
+
+
+
+        function add(elm) {
+
+            localStorage.setItem('editId', $(elm).attr('data-id'));
+
+            $('#OCID').val(localStorage.getItem('editId'));
+
+
+
+            // Trigger the Pop Up
+            $('#docuploadmodal').modal();
+
+        }
+
+
+
+
+
+
+        //get documents via OCID ID 
+        //triggered when download modal is about to be shown
+        $('#docdownmodal').on('show.bs.modal', function(e) {
+
+            //get data-id attribute of the clicked element
+            var OCID = $(e.relatedTarget).data('data-id');
+
+            //populate the textbox
+            $(e.currentTarget).find('input[name="OCID"]').val(OCID);
+        });
+
+
+        function Download(elm) {
+
+            localStorage.setItem('editId', $(elm).attr('data-id'));
+
+
+
+
+            $('#OCID').val(localStorage.getItem('editId'));
+
+
+
+            // Trigger the Pop Up
+            $('#docdownmodal').modal();
+
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        //Variation options to reveal text boxes
+        $(function() {
+            $("#Variation").on("change", function() {
+                var selectedColor = $(this).children("option").filter(":selected").text();
+                $(".letter").hide();
+                if (selectedColor == "Yes") {
+                    $("#test1").show();
+                }
+
+
+            }).change();
+        });
+    </script>
+
+
+
+
+
+
+
+    <style>
+        .trash {
+            color: rgb(209, 91, 71);
+        }
+        
+        .panel-body .checkbox {
+            display: inline-block;
+            margin: 0px;
+        }
+        
+        .list-group {
+            margin-bottom: 0px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+
+
+
+                    </li>
+                    <li role="presentation"><a href="/">Home</a>
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                    <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedAward">Awards</a>
+                            </li>
+
+
+                            <li role="presentation" class="active"><a href="#">Contracts</a>
+                            </li>
+
+
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract Dashboard</h3>
+        </div>
+
+
+
+
+        <!--            <h1>Welcome Home !!</h1> -->
+
+
+        <!-- using bootstrap list-group to display one item
+
+ <div class="jumbotron">
+
+            <div class="list-group">
+  <a href="#" class="list-group-item active">
+    <h4 class="list-group-item-heading">Release Title</h4>
+    <p class="list-group-item-text">Release ID</p>
+  </a>
+    </div>
+        
+ 
+            -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn">Contracts</h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--
+        {% if error %}
+        <p><strong>Error:</strong> {{error}} {% endif %}
+        -->
+
+
+        <div id="errorDIV">
+
+        </div>
+
+        <form role="form" onsubmit="return false">
+            <div class="form-group">
+                <label for="searchlabel" class="control-label">Search:</label>
+                <input id="searchstring" name="searchstring" type="text" style="width: 300px" ; class="form-control input-md">
+
+                <span class="help-block">Keywords <br>Can include contract title, description and contractor name</span>
+
+            </div>
+            <button id="textSearchButton" type="button" onclick="searchContracts(1)" class="btn btn-primary">Search</button>
+        </form>
+
+
+
+        <!--
+
+            <form role="form" onsubmit="return false">
+                <div class="form-group">
+                    <label for="searchlabel" class="control-label">Search:</label>
+                    <input id="searchstring" name="searchstring" type="text" style="width: 300px" ; class="form-control input-md">
+
+                    <span class="help-block">Keywords <br>Can include contract title, description and contractor name</span>
+
+                    <label for="searchlabel" class="control-label">Contract Start:</label>
+
+                    <select id="contractStart">
+                        <option selected disabled class="hideoption">any</option>
+
+                    </select>
+
+
+                    <label for="searchlabel" class="control-label">Contract End:</label>
+
+                    <select id="contractEnd">
+                                                <option selected disabled class="hideoption">any</option>
+
+                    </select>
+
+
+
+                </div>
+                <button id="textSearchButton" type="button" onclick="searchContracts(1)" class="btn btn-primary">Search</button>
+            </form>
+
+
+
+
+-->
+
+
+
+        <!--items to be displayed row by row per release-->
+        <script id="listTemplate" type="text/x-jQuery-tmpl">
+
+            <li class="list-group-item">
+                <div class="checkbox">
+                    <label>
+               <p>OCID: ${OCID}</p>
+                <br>
+                <p>Contract Description: ${contract_Description}</p>
+                <br>
+                <p>Contract Reference No.: ${reference}</p>
+                <br>
+                <p>Contract Status: ${contract_status}</p>
+                <br>
+                <p>Contract Signed Date: ${contract_date}</p>
+                <br>
+                 <p>Start Date: ${start_date}</p>
+                <br>
+                 <p>End Date: ${end_date}</p>
+                <br>
+                 <p>Geolocation - Street: ${street} City: ${city} State: ${state} Country: ${country} Longitude: ${longit} Latitude: ${latitude}</p>
+                <br>
+            </label>
+                </div>
+
+                <div class="pull-right action-buttons">
+                    <pre>
+   <a data-id=${OCID} onclick="Edit(this)"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a data-id=${OCID}  data-toggle="modal" data-target="#newimplementation"><span>Implementation</span></a>
+    <a data-id=${OCID}  data-toggle="modal" data-target="#updateimplementation"><span>Completion</span></a>
+
+    <a data-id=${OCID}  onclick="add(this)"><span>Add Document(s)</span></a>
+   
+     <a data-id=${OCID} onclick="Download(this)"><span>Download Documents</span></a>
+
+</pre>
+
+                </div>
+
+            </li>
+
+
+
+
+
+
+
+
+
+            <!--SEARCH FORMS/ACTIONS -->
+
+
+
+
+            <!--
+            <div class="search">
+                <form action="/search" method=post>
+                    <input type=text name=search value="{{ request.form.search}}"></br>
+                    <div class="actions"><input type=submit value="Search"></div>
+                </form>
+            </div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+
+
+
+        <!--        start implementaton UI POPUP-->
+
+        <div class="modal fade modal-dialog modal-lg" id="docdownmodal" tabindex="-1" role="dialog" aria-labelledby="docdownmodalLabel" aria-hidden="true" class="modal-dialog modal-lg">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                        <h4 class="modal-title" id="docdownmodalLabel">Documents</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div>
+
+                            <p>Download Document(s)</p>
+                            <form action="contractDownload" method="post" enctype="multipart/form-data">
+                                <input id="OCID" type="hidden" name="OCID" value=""><br /><br />
+                                <input type="submit" value="Download">
+                            </form>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--        start document UI POPUP-->
+
+        <div class="modal fade modal-dialog modal-lg" id="docuploadmodal" tabindex="-1" role="dialog" aria-labelledby="docuploadmodalLabel" aria-hidden="true" class="modal-dialog modal-lg">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                        <h4 class="modal-title" id="docuploadmodalLabel">Documents</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div>
+
+
+
+
+                            <p>Upload Document(s)</p>
+                            <form action="contractUpload" method="post" enctype="multipart/form-data">
+                                <input type="file" name="file">
+                                <input id="OCID" type="hidden" name="OCID" value=""><br /><br />
+                                <input type="submit" value="Upload">
+                            </form>
+                        </div>
+
+
+                        <br>
+
+                        <!--
+       <p>Upload (Contract document)</p>
+      <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input id="OCID" type="hidden" name="OCID" value=""><br /><br />
+        <input type="submit" value="Upload">
+      </form>
+      </div>
+
+
+<br>
+      <div>
+      <p>Upload (Implementation Plan)</p>
+      <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input id="OCID" type="hidden" name="OCID" value=""><br /><br />
+        <input type="submit" value="Upload">
+      </form>
+      </div>
+-->
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- edit popup UI triggered by edit icon above-->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                        <h4 class="modal-title" id="updateModalLabel">Update Contract</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="tag">Award Status:</label>
+                                <div class="col-md-4">
+                                    <select id="edittag" name="tag" class="form-control">
+
+            <option value="">Release Tag/Stage:</option>
+            <option value="Pending">Pending</option>
+            <option value="Active">Active</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Unsuccessful">Unsuccessful</option>
+            
+           </select>
+
+
+                                    <span class="help-block">Required</span>
+                                </div>
+                            </div>
+
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!--        start implementaton UI POPUP-->
+
+        <div class="modal fade modal-dialog modal-lg" id="newimplementation" tabindex="-1" role="dialog" aria-labelledby="newimplementationLabel" aria-hidden="true" class="modal-dialog modal-lg">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                        <h4 class="modal-title" id="newimplementationLabel">Implementation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Variation">Variation?:</label>
+                                <div class="col-md-4">
+                                    <select id="Variation" name="Variation" class="form-control">
+            <option value="">Variation?:</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            
+           </select>
+                                </div>
+                            </div>
+
+
+
+
+                            <div id="test1" class="letter" style="display:none">
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="bppref">BPP Variation Approval No.:</label>
+                                    <div class="col-md-4">
+                                        <input id="bppapproval" name="bppapproval" type="text" placeholder="BPP Variation Approval No." class="form-control input-md" required="">
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="variationamt">Variation Amount:</label>
+                                    <div class="col-md-4">
+                                        <input id="variationamt" name="variationamt" type="number" value=0 style="width: 100px" ; placeholder=" Variation Amount" class="form-control input-md" required="">
+                                        <span class="help-block">ONLY decimals allowed -- no commas</span>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="totalrevamt">Total Revised Estimated Contract Amount:</label>
+                                <div class="col-md-4">
+                                    <input id="totalrevamt" name="totalrevamt" type="number" value=0 style="width: 120px" ; placeholder="Total Revised Estimated Contract Amount" class="form-control input-md" required="">
+                                    <span class="help-block">ONLY decimals allowed -- no commas</span>
+
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnStart" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <!--        begin implementation/completion UI POPUP-->
+
+        <div class="modal fade modal-dialog modal-lg" id="updateimplementation" tabindex="-1" role="dialog" aria-labelledby="updateComplModalLabel" aria-hidden="true" class="modal-dialog modal-lg">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                        <h4 class="modal-title" id="updateComplModalLabel">Update Completion</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="url">Amount Paid (NGN):</label>
+                                <div class="col-md-4">
+                                    <input id="amount" name="amount" type="number" placeholder="Amount Paid (NGN)" class="form-control input-md" value=0 style="width: 100px" ; required="">
+                                    <span class="help-block">ONLY decimals allowed -- no commas</span>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="status">Project Status:</label>
+                                <div class="col-md-4">
+                                    <select id="status" name="status" class="form-control">
+            <option value="">Project Status:</option>
+            <option value="Not yet commenced">Not yet commenced</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Suspended">Suspended</option>
+            <option value="Completed">Completed</option>
+            
+           </select>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Completion">% Completion:</label>
+                                <div class="col-md-4">
+                                    <input id="Completion" name="Completion" type="number" value=0 min="0" max="100" step="5" placeholder="% Completion" style="width: 100px" ; class=" form-control input-md" required="">
+
+
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="url">Final Cost (NGN):</label>
+                                <div class="col-md-4">
+                                    <input id="finalcost" name="finalcost" type="number" value=0 style="width: 100px" ; placeholder=" Final Cost" class="form-control input-md" required="">
+                                    <span class="help-block">ONLY decimals allowed -- no commas</span>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" data-dismiss="modal" id="btnCompl" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <br>
+        <br> {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel-body">
+
+
+
+                    <!-- items are appended to this section of webpage dynamically by jquery AJAX via the ulist tag-->
+                    <ul id="ulist" class="list-group">
+
+
+
+
+
+                    </ul>
+
+
+
+
+
+                    <!--dynamic pagination UI  -->
+                    <nav>
+                        <ul class="pagination">
+
+
+
+
+
+
+                        </ul>
+                    </nav>
+
+
+                    <!--static pagination UI 
+            <nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a>
+        </li>
+        <li><a href="#">2</a>
+        </li>
+        <li><a href="#">3</a>
+        </li>
+        <li><a href="#">4</a>
+        </li>
+        <li><a href="#">5</a>
+        </li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+-->
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <input type="hidden" id="hdnStart" value="1" />
+    <input type="hidden" id="hdnEnd" value="5" />
+
+
+
+    <p>Create a
+        <a href="/showNewRelease">
+            <b>New Release or Contracting Process?</b></a>
+    </p>
+    <br>
+
+    <pre>Create a <a href="/showNewPlan"><b>New Plan?</b></a>
+View <a href ="/showSavedPlan"><b>Procurement Plans</b></a></pre>
+    <br>
+
+
+    <pre>Create a <a href ="/showNewTender"><b>New Tender?</b></a>
+View <a href="/showSavedTender"><b>Tenders</b></a></pre>
+    <br>
+
+
+    <pre>Create an <a href ="/showNewAward"><b>Award?</b></a>
+View <a href="/showSavedAward"><b>Awards</b></a></pre>
+    <br>
+
+
+    <pre>Create a <a href ="/showNewContract"><b>Contract?</b></a>
+View <a href=" /showSavedContract"><b>Contracts</b></a></pre>
+    <br>
+
+
+    <footer class="footer">
+        <p>&copy; Company 2016</p>
+    </footer>
+
+    </div>
+</body>
+
+</html>

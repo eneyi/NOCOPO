@@ -1,0 +1,17 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<select id="country">
+  <option value="" disabled="disabled" selected="selected">PLEASE CHOOSE</option>
+  <option value="USA">USA</option>
+  <option value="UK">UK</option>
+  <option value="IT">ITALY</option>
+</select>
+<div id="states">states</div>
+
+<script>
+$('#country').on('change', function() {
+  if ( this.value == 'USA')
+    $("#states").show();     
+  else
+    $("#states").hide();
+}).trigger("change"); // notice this line
+</script>

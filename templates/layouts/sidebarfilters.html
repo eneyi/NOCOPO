@@ -1,0 +1,85 @@
+<form action="#">
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="search1">
+        <label class="mdl-textfield__label" for="search1">Search......</label>
+    </div>
+    <br>
+
+    <br>
+    <div>
+        <a href="#ministryfilter" class="list-group-item" data-toggle="collapse">
+            <i class="fa fa-chevron-right"></i>Locations
+        </a>
+
+        <div class="list-group collapse" id="ministryfilter">
+            {% for fr in loc %}
+                <a href="#" class="list-group-item">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="ministryfilter">
+                        <input class="mdl-checkbox__input" type="checkbox" id="ministryfilter" disabled>
+                        <span style="padding-left:7px;" class="mdl-textfield__label">{{ fr['_id'] }}</span>
+                        <span style="margin-left:7px;" class="badge mdl-badge">{{ fr['count'] }}</span>
+                    </label>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div>
+        <a href="#agencyfilter" class="list-group-item" data-toggle="collapse">
+            <i class="fa fa-chevron-right"></i>Agencies
+        </a>
+
+        <div class="list-group collapse" id="agencyfilter">
+            {% for fr in agency %}
+                <a href="#" class="list-group-item">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="agencyfilter">
+                        <input class="mdl-checkbox__input" type="checkbox" id="agencyfilter" disabled>
+                        <span style="padding-left:7px;" class="mdl-textfield__label">{{ fr['_id'] }}</span>
+                        <span style="margin-left:7px;" class="badge mdl-badge">{{ fr['count'] }}</span>
+                    </label>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div>
+        <a href="#locationfilter" class="list-group-item" data-toggle="collapse">
+            <i class="fa fa-chevron-right"></i>Contractors
+        </a>
+
+        <div class="list-group collapse" id="locationfilter">
+            {% for fr in contractors %}
+                <a href="#" class="list-group-item">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="statefilter">
+                        <input class="mdl-checkbox__input" type="checkbox" id="statefilter" disabled>
+                        <span style="padding-left:7px;" class="mdl-textfield__label">{{ fr['_id'] }}</span>
+
+                    </label>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="position:relative;">
+        <div class="mdl-slider mdl-js-slider">
+            <label class="mdl-slider__label" for="amountfilter">Amount</label>
+            <input type="range" class="mdl-slider__input" name="range" min="1" max="10000000000000" value="1000000"
+                   onchange="showMessage(this.value)" oninput="showMessage(this.value)">
+            <label style="text-align:center;">Value: <span id="message">0</span></label>
+            <br>
+        </div>
+    </div>
+    <br><br>
+</form>
+
+<br>
+<br>
+<div>
+    <a class="btn btn-success" href="/open_api" target="_blank">DATA API</a>
+   <a class="btn btn-success" href="#" target="_blank">BPP Reporting Form</a>
+    <br>
+</div>

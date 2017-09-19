@@ -1,0 +1,21 @@
+<script>
+$('#Variation').on('change', function() {
+  if ( this.value == 'Yes')
+  //  $("#bppapproval").show(); 
+    $('label[for="bppref"]').show();    
+  else
+    //$("#bppapproval").hide();
+  $('label[for="bppref"]').hide();
+}).trigger("change"); // notice this line
+</script>
+
+
+
+<script>
+$('#Variation').on('change', function() {
+  if ( this.value == 'Yes')
+  $("#bppapproval").show(); 
+  else
+$("#bppapproval").hide();
+}).trigger("change"); // notice this line
+</script>

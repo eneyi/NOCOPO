@@ -1,0 +1,124 @@
+
+
+################################### START OF SEARCH CONTRACTING MODAL
+
+
+
+#retrieve contracts method
+@app.route('/getContracts', methods=['POST'])
+def getContracts():
+    try:
+
+
+        con = mysql.connect()
+        cursor = con.cursor()
+        _limit = pageLimit
+        _offset = request.form['offset']
+            
+        _total_records = 0 
+
+        _text = request.form['searchstring']
+
+        var1 = _text + '%'
+        var2 = '%' + _text 
+        var3 = '%' + _text + '%'
+        var4 = _text
+        print "trial"
+            #query for what is to be displayed
+        query = """SELECT * FROM Contracting
+                    WHERE (Description LIKE '%s' #First word proceeded by more words
+                    OR  Description LIKE '%s'  #Last word preceded by other words
+                    OR  Description LIKE '%s'  #Word in between other words
+                    OR  Description = '%s' #Just the word itself
+                    OR Contractor LIKE '%s' #First word proceeded by more words
+                    OR  Contractor LIKE '%s' #Last word preceded by other words
+                    OR  Contractor LIKE '%s' #Word in between other words
+                    OR  Contractor = '%s' #Just the word itself
+                    OR Title LIKE '%s'  #First word proceeded by more words
+                    OR  Title LIKE '%s'  #Last word preceded by other words
+                    OR  Title LIKE '%s'  #Word in between other words
+                    OR  Title = '%s') #Just the word itself
+                    ORDER BY id DESC LIMIT %s, %s"""% (var1,var2,var3, var4,var1,var2,var3, var4,var1,var2,var3, var4, _offset, _limit)
+       
+        print query    
+        cursor.execute(query)
+
+        if cursor.execute(query) > 0:
+
+
+            searches = cursor.fetchall()
+            cursor.close()
+
+            cursor = con.cursor()
+
+            #query to count for pagination  purposes
+            query = """SELECT COUNT(*) FROM Contracting
+                     WHERE (Description LIKE '%s' #First word proceeded by more words
+                    OR  Description LIKE '%s'  #Last word preceded by other words
+                    OR  Description LIKE '%s'  #Word in between other words
+                    OR  Description = '%s' #Just the word itself
+                    OR Contractor LIKE '%s' #First word proceeded by more words
+                    OR  Contractor LIKE '%s' #Last word preceded by other words
+                    OR  Contractor LIKE '%s' #Word in between other words
+                    OR  Contractor = '%s' #Just the word itself
+                    OR Title LIKE '%s'  #First word proceeded by more words
+                    OR  Title LIKE '%s'  #Last word preceded by other words
+                    OR  Title LIKE '%s'  #Word in between other words
+                    OR  Title = '%s') #Just the word itself
+                    """% (var1,var2,var3, var4,var1,var2,var3, var4,var1,var2,var3, var4)
+
+            cursor.execute(query)
+
+            res = cursor.fetchall()
+
+
+
+            response = []
+            searches_dict = []
+
+#parse the data and convert it into a dictionary so that it's easy to return as JSON
+            for search in searches:
+                search_dict = {
+                             'title': search[1],
+                             'value': search[6],
+                             'contractor' : search[10],
+                             'status': search[3]}
+                            
+                searches_dict.append(search_dict)
+                response.append(search_dict)
+                response.append({'total':res[0][0]})
+
+
+#convert into json after converting to dictionary
+            return json.dumps(response)
+
+
+
+        else:
+            message = """No Results Found """
+                            #return json.dumps({'message':'User created successfully !'})
+            flash(message)
+            return redirect('/showContracts')
+
+
+
+    except Exception as e:
+        return render_template('error.html', error = str(e))
+
+
+
+
+
+
+
+################################### END OF SEARCH CONTRACTING MODAL
+
+
+
+
+#render tender form
+@app.route('/showContracts')
+def showContracts():
+    return render_template('contracting.html')
+
+

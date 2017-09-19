@@ -1,0 +1,35 @@
+release stages 
+- planning d
+- tender d
+- awards d
+- contracts d
+- top level d
+
+
+
+dbs
+- db.release
+- db.agencies
+- db.registered_contractors
+
+
+
+changes
+- docs -> documents (id, names, dates, etc) (separate forms for doc uploads)
+- planning.budget.amount -> planning.budget.value.amount
+- tenderPeriod -> "awardPeriod": {"startDate": "2011-09-01T00:00:00Z", "endDate": "2011-09-01T00:00:00Z"}
+- awards
+- contracts
+
+
+not done 
+- tender milestones
+- tender tenderers (separate form bbpid - from registered_contractors)
+- form for BPP to add new tenderer/company to registered_contractors database
+- tender items
+- scheme (e.g. NGA- )
+- ocid generation/format?
+- ids
+- document id and language
+- contracts documents
+

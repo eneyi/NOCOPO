@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+</head>
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+ 
+                  
+                    </li>
+                    <li role="presentation"><a href="/">Home</a>
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                     <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedAward">Awards</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedContract">Contracts</a>
+                            </li>
+
+
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+
+
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Tender<span style="color:lightgreen;">Form</span></h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <br>
+        <br> {% if error %}
+        <p><strong>Error:</strong> {{ error }} {% endif %} {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+
+
+
+
+
+            <div class="jumbotron">
+
+
+
+
+
+                <form width="1017" height="4890" class="form-horizontal" action="/initiate" method="POST">
+
+                    <fieldset>
+
+
+
+                        <hr>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ocid">OCID / Project ID</label>
+                            <div class="col-md-4">
+                                <input id="ocid" name="ocid" type="text" placeholder="OCID / Project ID" class="form-control input-md" required="">
+                                <span class="help-block"></span>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="title">Title</label>
+                            <div class="col-md-4">
+                                <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md" required="">
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="projdesc">Tender Description</label>
+                            <div class="col-md-4">
+                                <input id="projdesc" name="projdesc" type="text" placeholder="Tender Description" class="form-control input-md" required="">
+                                <span class="help-block">Mandatory</span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="lotcrit">Lot Criteria</label>
+         <div class="col-md-4">
+         <input id="lotcrit" name="lotcrit" type="text" placeholder="Lot Criteria" class="form-control input-md" required="">
+         </div>
+       </div>
+       -->
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tag">Tender Status</label>
+                            <div class="col-md-4">
+                                <select id="status" name="status" class="form-control">
+            <option value="">Tender Status:</option>
+            <option value="Actual">Actual</option>
+          <option value="Active">Active</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Unsuccessful">Unsuccessful</option>
+          <option value="Complete">Complete</option>
+           </select>
+             <span class="help-block">Mandatory</span>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="advertdate">Advertisement Date</label>
+                            <div class="col-md-4">
+                                <input id="advertdate" name="advertdate" type="text" placeholder="Advertisement Date" class="form-control input-md" required="">
+                                <span class="help-block">Mandatory: YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="media">List Advertisement Media</label>
+                            <div class="col-md-4">
+                                <input id="media" name="media" type="text" placeholder="List Advertisement Media" class="form-control input-md" required="" onblur="myFunction()">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="minvalue">Estimated Project Cost (NGN)</label>
+                            <div class="col-md-4">
+                                <input id="minvalue" name="minvalue" type="number" value="0" placeholder="Estimated Project Cost (NGN)" class="form-control input-md" required="">
+                                <span class="help-block">Mandatory: XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+
+                            </div>
+                        </div>
+
+                        <!-- Text input
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="minvalue">Minimum Value (NGN)</label>
+         <div class="col-md-4">
+         <input id="minvalue" name="minvalue" type="number" placeholder="Minimum Value (NGN)" class="form-control input-md" required="">
+                   <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+
+         </div>
+       </div>
+
+
+
+ 
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="maxvalue">Maximum Value (NGN)</label>
+         <div class="col-md-4">
+         <input id="maxvalue" name="maxvalue" type="number" placeholder="Maximum Value (NGN)" class="form-control input-md" required="">
+                   <span class="help-block">XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+
+         </div>
+       </div>
+
+
+
+-->
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tag">Procurement Method</label>
+                            <div class="col-md-4">
+                                <select id="procmethod" name="procmethod" class="form-control">
+            <option value="" >Procurement Method:</option>
+           
+          <option value="International Competitive Bidding">International Competitive Bidding</option>
+          <option value="National Competitive Bidding">National Competitive Bidding</option>
+          <option value="Direct">Direct</option>
+          <option value="Selective">Selective</option>
+           <option value="Repeat">Repeat</option>
+            <option value="Direct Labour">Direct Labour</option>
+           <option value="National Shopping">National Shopping</option>
+           <option value="Emergency">Emergency</option>
+           </select>
+
+
+                            </div>
+                        </div>
+
+
+                        <script>
+                            $(function() {
+                                $("#procmethod").on("change", function() {
+                                    var selectedColor = $(this).children("option").filter(":selected").text();
+                                    $(".rationale").hide();
+                                    if (selectedColor == "Direct" || selectedColor == "Selective" || selectedColor == "Repeat" || selectedColor == "Direct Labour") {
+                                        $("#test1").show();
+                                    }
+
+
+
+                                }).change();
+                            });
+                        </script>
+
+
+
+                        <div id="test1" class="rationale" style="display:none">
+
+                            <!-- Text input style="display:none"-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="rationale">Rationale for Selected Procurement Method</label>
+                                <div class="col-md-4">
+                                    <input id="rationale" name="rationale" type="text" placeholder="Rationale for Selected Procurement Method" class="form-control input-md" required="">
+                                    <span id="rationale1" class="help-block">Mandatory</span>
+
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div id="bppletterofnoobj" class="form-group">
+                                <label class="col-md-4 control-label" for="bppletterofnoobj">BPP Letter of No Objection Ref. No.</label>
+                                <div class="col-md-4">
+                                    <input id="bppletterofnoobj" name="bppletterofnoobj" type="text" placeholder="BPP Letter of No Objection Ref. No." class="form-control input-md" required="">
+                                    <span id="bppletterofnoobj1" class="help-block">Mandatory</span>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="awardCriteria">Award Criteria</label>
+                            <div class="col-md-4">
+                                <select id="awardCriteria" name="awardCriteria" class="form-control">
+            <option value="">Award Criteria:</option>
+           
+          <option value="Lowest Evaluated Responsive Bid">Lowest Evaluated Responsive Bid</option>
+          <option value="QCBS">QCBS</option>
+          <option value="CQS">CQS</option>
+          <option value="QBS">QBS</option>
+           <option value="LCS">LCS</option>
+           <option value="FBS">FBS</option>
+           <option value="SSS">SSS</option>
+
+           </select>
+                                <span class="help-block">Mandatory</span>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="awardCriteriadet">Award Criteria Details</label>
+                            <div class="col-md-4">
+                                <input id="awardCriteriadet" name="awardCriteriadet" type="text" placeholder="Award Criteria Details" class="form-control input-md" required="">
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tenderstart">Tender Period – Start date</label>
+                            <div class="col-md-4">
+                                <input id="tenderstart" name="tenderstart" type="text" placeholder="Tender Period – Start date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tenderend">Tender Period – End date</label>
+                            <div class="col-md-4">
+                                <input id="tenderend" name="tenderend" type="text" placeholder="Tender Period – End date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="submethod">Submission Method</label>
+                            <div class="col-md-4">
+                                <input id="submethod" name="submethod" type="text" placeholder="Submission Method" class="form-control input-md" required="">
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="submethoddet">Submission Method Details</label>
+                            <div class="col-md-4">
+                                <input id="submethoddet" name="submethoddet" type="text" placeholder="Submission Method Details" class="form-control input-md" required="">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="hasenq">Has Enquiries</label>
+                            <div class="col-md-4">
+                                <select id="hasenq" name="hasenq" class="form-control">
+            <option value="">Has Enquiries:</option>
+         
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+         
+
+           </select>
+                                <span class="help-block">Please indicate whether enquiries were part of tender process</span>
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="enqperdstart">Enquiry Period – Start date</label>
+                            <div class="col-md-4">
+                                <input id="enqperdstart" name="enqperdstart" type="text" placeholder="Enquiry Period – Start date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="enqperdstartend">Enquiry Period – End date</label>
+                            <div class="col-md-4">
+                                <input id="enqperdstartend" name="enqperdstartend" type="text" placeholder="Enquiry Period – End date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="haspet">Has Petition/Complaint</label>
+                            <div class="col-md-4">
+                                <select id="haspet" name="haspet" class="form-control">
+            <option value="">Has Petition/Complaint:</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+           </select>
+                                <span class="help-block">Indicate whether there were petitions/complaints during the tender process</span>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <script>
+                            $(function() {
+                                $("#haspet").on("change", function() {
+                                    var selectedColor = $(this).children("option").filter(":selected").text();
+                                    $(".remark").hide();
+                                    if (selectedColor == "Yes") {
+                                        $("#test91").show();
+                                    }
+
+
+                                }).change();
+                            });
+                        </script>
+
+
+
+                        <div id="test91" class="remark" style="display:none">
+
+                            <!-- Text input style="display:none"-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="petitionremark">Any Remarks on Petitions Received?</label>
+                                <div class="col-md-4">
+                                    <input id="petitionremark" name="petitionremark" type="text" placeholder="Any Remarks on Petitions Received?" class="form-control input-md" required="">
+                                    <span id="rationale1" class="help-block">Optional</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="eligcrit">Eligibility Criteria</label>
+                            <div class="col-md-4">
+                                <input id="eligcrit" name="eligcrit" type="text" placeholder="Eligibility Criteria" class="form-control input-md" required="">
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="nooftenderers">Number of Tenderers</label>
+                            <div class="col-md-4">
+                                <input id="nooftenderers" name="nooftenderers" type="number" value="0" placeholder="Number of Tenderers" class="form-control input-md" required="">
+
+ <span id="rationale1" class="help-block">Mandatory</span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="awardstart">Award Period – Start date</label>
+                            <div class="col-md-4">
+                                <input id="awardstart" name="awardstart" type="text" placeholder="Award Period – Start date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="awardend">Award Period – End date</label>
+                            <div class="col-md-4">
+                                <input id="awardend" name="awardend" type="text" placeholder="Award Period – End date" class="form-control input-md" required="">
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+<!--
+
+
+
+                        <div class="form-group">
+                            <label for="tenderupload">Upload Document (Optional)</label>
+
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="tenderupload" name="tenderupload" multiple>
+                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+
+                        </div>
+-->
+
+
+
+                        <br>
+                        <br>
+                        <center>
+                            <h4>Procurement Plan Review</h4>
+                        </center>
+                        <br>
+                        <br>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="tag">Procurement Category</label>
+                            <div class="col-md-4">
+                                <select id="projtype" name="projtype" class="form-control">
+            <option value="">Procurement Category:</option>
+           
+          <option value="Goods">Goods</option>
+         
+          <option value="Works">Works</option>
+           <option value="Consultancy Services">Consultancy Services</option>
+            <option value="Non-Consultancy Services">Non-Consultancy Services</option>
+           </select>
+                                <span class="help-block">Mandatory</span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <script>
+                            $(function() {
+                                $("#projtype").on("change", function() {
+                                    var selectedColor = $(this).children("option").filter(":selected").text();
+                                    $(".hideable").hide();
+                                    if (selectedColor == "Goods") {
+                                        $("#test13").show();
+                                        $("#test3").show();
+                                        $("#test4").show();
+                                        $("#test5").show();
+                                    } else if (selectedColor == "Works") {
+                                        $("#test23").show();
+                                        $("#test3").show();
+                                        $("#test5").show();
+                                        $("#test4").show();
+                                    } else if (selectedColor == "Non-Consultancy Services") {
+                                        $("#test2").show();
+                                        $("#test9").show();
+                                    } else if (selectedColor == "Consultancy Services") {
+                                        $("#test5").show();
+                                        $("#test2").show();
+                                        $("#test9").show();
+                                    }
+
+
+
+
+                                }).change();
+                            });
+                        </script>
+
+
+
+
+
+
+
+
+
+                        <div id="test2" class="hideable" style="display:none">
+
+
+
+                            <br>
+                            <br>
+                            <h4>Request for Expression of Interest (EoI):</h4>
+                            <br>
+                            <br>
+
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="advertstart">Actual Advertisement of EoI  – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="advertstart" name="advertstart" type="text" placeholder="Actual Advertisement of EoI – Start date" class="form-control input-md" required="">
+                                    <span id="advertstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="advertend">Actual Advertisement of EoI  – End date</label>
+                                <div class="col-md-4">
+                                    <input id="advertend" name="advertend" type="text" placeholder="Actual Advertisement of EoI – End date" class="form-control input-md" required="">
+                                    <span id="advertend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="leadbefliststart">Actual Evaluation of EoI – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="leadbefliststart" name="leadbefliststart" type="text" placeholder="Actual Evaluation of EoI – Start date" class="form-control input-md" required="">
+                                    <span id="leadbefliststart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="leadbeflistend">Actual Evaluation of EoI – End date</label>
+                                <div class="col-md-4">
+                                    <input id="leadbeflistend" name="leadbActual Evaluation of EoILead-time before shortlist – End date" class="form-control input-md" required="">
+                                    <span id="leadbeflistend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="mdalistapprovestart">Actual Shortlist Approval  – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="mdalistapprovestart" name="mdalistapprovestart" type="text" placeholder="Actual Shortlist Approval  – Start date" class="form-control input-md" required="">
+                                    <span id="mdalistapprovestart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="mdalistapproveend">Actual Shortlist Approval  – End date</label>
+                                <div class="col-md-4">
+                                    <input id="mdalistapproveend" name="mdalistapproveend" type="text" placeholder="Actual Shortlist Approval  – End date" class="form-control input-md" required="">
+                                    <span id="mdalistapproveend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="shortlistsubmission">Actual Shortlist Publishing Date</label>
+                                <div class="col-md-4">
+                                    <input id="shortlistsubmission" name="shortlistsubmission" type="text" placeholder="Actual Shortlist Publishing Date" class="form-control input-md" required="">
+                                    <span id="shortlistsubmission1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <br>
+                            <br>
+                            <h4>Request for Proposals (RfP):</h4>
+                            <br>
+                            <br>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="propinvitestart">Actual Invitation for Request for Proposals  – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="propinvitestart" name="propinvitestart" type="text" placeholder="Actual Invitation for Request for Proposals  – Start date" class="form-control input-md" required="">
+                                    <span id="propinvitestart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="propinviteend">Actual Invitation for Request for Proposals  – End date</label>
+                                <div class="col-md-4">
+                                    <input id="propinviteend" name="propinviteend" type="text" placeholder="Actual Invitation for Request for Proposals  – End date" class="form-control input-md" required="">
+                                    <span id="propinviteend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="techpropopen">Actual Opening of Technical Proposal Date</label>
+                                <div class="col-md-4">
+                                    <input id="techpropopen" name="techpropopen" type="text" placeholder="Actual Opening of Technical Proposal Date" class="form-control input-md" required="">
+                                    <span id="techpropopen" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <br><br>
+                            <h4>Proposal Evaluation and Negotiation:</h4>
+                            <br><br>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="subtechEvreportstart">Actual Evaluation  of Technical Evaluation Report – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="subtechEvreportstart" name="subtechEvreportstart" type="text" placeholder="Actual Evaluation  of Technical Evaluation Report – Start date" class="form-control input-md" required="">
+                                    <span id="subtechEvreportstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="subtechEvreportend">Actual Evaluation  of Technical Evaluation Report – End date</label>
+                                <div class="col-md-4">
+                                    <input id="subtechEvreportend" name="subtechEvreportend" type="text" placeholder="Actual Evaluation of Technical Evaluation Report – End date" class="form-control input-md" required="">
+                                    <span id="subtechEvreportend" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="mdaapptechEvreportstart">Actual  Technical Evaluation Report Approval – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="mdaapptechEvreportstart" name="mdaapptechEvreportstart" type="text" placeholder="Actual  Technical Evaluation Report Approval – Start date" class="form-control input-md" required="">
+                                    <span id="mdaapptechEvreportstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="mdaapptechEvreportend">Actual  Technical Evaluation Report Approval – End date</label>
+                                <div class="col-md-4">
+                                    <input id="mdaapptechEvreportend" name="mdaapptechEvreportend" type="text" placeholder="Actual Technical Evaluation Report Approval – End date" class="form-control input-md" required="">
+                                    <span id="mdaapptechEvreportend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Openingfinancialpropstart">Actual Opening of Financial Proposal Date</label>
+                                <div class="col-md-4">
+                                    <input id="Openingfinancialpropstart" name="Openingfinancialpropstart" type="text" placeholder="Actual Opening of Financial Proposal Date" class="form-control input-md" required="">
+                                    <span id="Openingfinancialpropstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submissionevareportstart">Actual Evaluation of Financial Proposal – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="submissionevareportstart" name="submissionevareportstart" type="text" placeholder="Actual Evaluation of Financial Proposal – Start date" class="form-control input-md" required="">
+                                    <span id="submissionevareportstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submissionevareportend">Actual Submissions of Evaluation Report Technical / Evaluation of Financial Proposal – End date</label>
+                                <div class="col-md-4">
+                                    <input id="submissionevareportend" name="submissionevareportend" type="text" placeholder="Actual Submissions of Evaluation Report Technical / Evaluation of Financial Proposal – End date" class="form-control input-md" required="">
+                                    <span id="submissionevareportend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Negotiationsstart">Actual  Negotiations – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="Negotiationsstart" name="Negotiationsstart" type="text" placeholder="Actual Negotiations – Start date" class="form-control input-md" required="">
+                                    <span id="Negotiationsstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Negotiationsend">Actual Negotiations – End date</label>
+                                <div class="col-md-4">
+                                    <input id="Negotiationsend" name="Negotiationsend" type="text" placeholder="Actual Negotiations – End date" class="form-control input-md" required="">
+                                    <span id="Negotiationsend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Negotiationappobjectstart">Actual Procuring Entity Evaluation Approval – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="Negotiationappobjectstart" name="Negotiationappobjectstart" type="text" placeholder="Actual Procuring Entity Evaluation Approval – Start date" class="form-control input-md" required="">
+                                    <span id="Negotiationappobjectstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Negotiationappobjectstartend">Actual Procuring Entity Evaluation Approval – End date</label>
+                                <div class="col-md-4">
+                                    <input id="Negotiationappobjectstartend" name="Negotiationappobjectstartend" type="text" placeholder="Actual Procuring Entity Evaluation Approval – End date" class="form-control input-md" required="">
+                                    <span id="Negotiationappobjectstartend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="planndcertnoobjstart">Actual Certificate of No Objection for Evaluation Report – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="planndcertnoobjstart" name="planndcertnoobjstart" type="text" placeholder="Actual Certificate of No Objection for Evaluation Report – Start date" class="form-control input-md" required="">
+                                    <span id="planndcertnoobjstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="planndcertnoobjend">Actual Certificate of No Objection for Evaluation Report – End date</label>
+                                <div class="col-md-4">
+                                    <input id="planndcertnoobjend" name="planndcertnoobjend" type="text" placeholder="Actual Certificate of No Objection for Evaluation Report – End date" class="form-control input-md" required="">
+                                    <span id="planndcertnoobjend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div id="test3" class="hideable" style="display:none">
+
+
+
+
+                            <br><br>
+                            <h4>Invitation for Prequalification:</h4>
+                            <br>
+                            <br>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="preqadvertstart">Actual Advertisement for Prequalification  – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="preqadvertstart" name="preqadvertstart" type="text" placeholder="Actual Advertisement for Prequalification – Start date" class="form-control input-md" required="">
+                                    <span id="preqadvertstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="preqadvertend">Actual Advertisement for Prequalification  – End date</label>
+                                <div class="col-md-4">
+                                    <input id="preqadvertend" name="preqadvertend" type="text" placeholder="Actual Advertisement for Prequalification – End date" class="form-control input-md" required="">
+                                    <span id="preqadvertend" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationopen">Actual Prequalification Opening Date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationopen" name="Prequalificationopen" type="text" placeholder="Actual Prequalification Opening Date" class="form-control input-md" required="">
+                                    <span id="Prequalificationopen" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationstart">Actual Evaluation of Prequalification Submissions – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationstart" name="Prequalificationstart" type="text" placeholder="Actual Evaluation of Prequalification Submissions – Start date" class="form-control input-md" required="">
+                                    <span id="Prequalificationstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationend">Actual Evaluation of Prequalification Submissions – End date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationend" name="Prequalificationend" type="text" placeholder="Actual Evaluation of Prequalification Submissions – End date" class="form-control input-md" required="">
+                                    <span id="Prequalificationend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationappobjectstart">Actual Prequalification Approval – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationappobjectstart" name="Prequalificationappobjectstart" type="text" placeholder="Actual Prequalification Approval – Start date" class="form-control input-md" required="">
+                                    <span id="Prequalificationappobjectstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationappobjectend">Actual Prequalification Approval – End date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationappobjectend" name="Prequalificationappobjectend" type="text" placeholder="Actual Prequalification Approval – End date" class="form-control input-md" required="">
+                                    <span id="Prequalificationappobjectend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Prequalificationpubl">Actual Prequalification Publishing Date</label>
+                                <div class="col-md-4">
+                                    <input id="Prequalificationpubl" name="Prequalificationpubl" type="text" placeholder="Actual Prequalification Publishing Date" class="form-control input-md" required="">
+                                    <span id="Prequalificationpubl1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                        <div id="test5" class="hideable" style="display:none">
+
+
+                            <br><br>
+
+                            <h4>Two Stage Tendering (Bidding Period):</h4>
+                            <br><br>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="firstbidstart">Actual First Stage Bidding – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="firstbidstart" name="firstbidstart" type="text" placeholder="Actual First Stage Bidding – Start date" class="form-control input-md" required="">
+                                    <span id="firstbidstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="firstbidend">Actual First Stage Bidding – End date</label>
+                                <div class="col-md-4">
+                                    <input id="firstbidend" name="firstbidend" type="text" placeholder="Actual First Stage Bidding – End date" class="form-control input-md" required="">
+                                    <span id="firstbidend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="secondbidstart">Actual Second Stage Bidding – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="secondbidstart" name="secondbidstart" type="text" placeholder="Actual Second Stage Bidding – Start date" class="form-control input-md" required="">
+                                    <span id="secondbidstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="secondbidend">Actual Second Stage Bidding – End date</label>
+                                <div class="col-md-4">
+                                    <input id="secondbidend" name="secondbidend" type="text" placeholder="Second Stage Bidding – End date" class="form-control input-md" required="">
+                                    <span id="secondbidend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div id="test4" class="hideable" style="display:none">
+
+
+                            <br><br>
+                            <h4>Single Stage Tendering (Bidding Period):</h4>
+                            <br><br>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidinvite">Actual Bid Invitation – Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidinvite" name="bidinvite" type="text" placeholder="Actual Bid Invitation – Date" class="form-control input-md" required="">
+                                    <span id="bidinvite1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidclose">Actual Bid Closing/Opening – Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidclose" name="bidclose" type="text" placeholder="Actual Bid Closing/Opening – Date" class="form-control input-md" required="">
+                                    <span id="bidclose" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidevalrepstart">Actual Bid Evaluation – Start Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidevalrepstart" name="bidevalrepstart" type="text" placeholder="Actual Bid Evaluation – Start Date" class="form-control input-md" required="">
+                                    <span id="bidevalrepstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidevalrepend">Actual Bid Evaluation – End Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidevalrepend" name="bidevalrepend" type="text" placeholder="Actual Bid Evaluation – End Date" class="form-control input-md" required="">
+                                    <span id="bidevalrepend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidevalMDAstart">Actual Procuring Entity Evaluation Approval – Start Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidevalMDAstart" name="bidevalMDAstart" type="text" placeholder="Actual Procuring Entity Evaluation Approval – Start Date" class="form-control input-md" required="">
+                                    <span id="bidevalMDAstart" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="bidevalMDAend">Actual Procuring Entity Evaluation Approval – End Date</label>
+                                <div class="col-md-4">
+                                    <input id="bidevalMDAend" name="bidevalMDAend" type="text" placeholder="Actual Procuring Entity Evaluation Approval – End Date" class="form-control input-md" required="">
+                                    <span id="bidevalMDAend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="certnoobjectstart">Actual Certificate of No Objection for Evaluation Report  – Start Date</label>
+                                <div class="col-md-4">
+                                    <input id="certnoobjectstart" name="certnoobjectstart" type="text" placeholder="Actual Certificate of No Objection for Evaluation Report  – Start Date" class="form-control input-md" required="">
+                                    <span id="certnoobjectstart" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="certnoobjectend">Actual Certificate of No Objection for Evaluation Report  – End Date</label>
+                                <div class="col-md-4">
+                                    <input id="certnoobjectend" name="certnoobjectend" type="text" placeholder="Actual Certificate of No Objection for Evaluation Report  – End Date" class="form-control input-md" required="">
+                                    <span id="certnoobjectend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <br><br><br>
+                        <h4>Contract Finalization:</h4>
+                        <br><br>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="fecapprovestart">Actual FEC Approval – Start date</label>
+                            <div class="col-md-4">
+                                <input id="fecapprovestart" name="fecapprovestart" type="text" placeholder="Actual FEC Approval – Start date" class="form-control input-md" required="">
+                                <span id="fecapprovestart1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="fecapproveend">Actual FEC Approval – End date</label>
+                            <div class="col-md-4">
+                                <input id="fecapproveend" name="fecapproveend" type="text" placeholder="Actual FEC Approval – End date" class="form-control input-md" required="">
+                                <span id="fecapproveend" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="controfferstart">Actual Contract offer – Start date</label>
+                            <div class="col-md-4">
+                                <input id="controfferstart" name="controfferstart" type="text" placeholder="Actual Contract offer – Start date" class="form-control input-md" required="">
+                                <span id="controfferstart1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="controfferend">Actual Contract offer – End date</label>
+                            <div class="col-md-4">
+                                <input id="controfferend" name="controfferend" type="text" placeholder="Actual Contract offer – End date" class="form-control input-md" required="">
+                                <span id="controfferend1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="contrsignstart">Actual Contract Signature – Start date</label>
+                            <div class="col-md-4">
+                                <input id="contrsignstart" name="contrsignstart" type="text" placeholder="Actual Contract Signature – Start date" class="form-control input-md" required="">
+                                <span id="contrsignstart1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="contrsignend">Actual Contract Signature – End date</label>
+                            <div class="col-md-4">
+                                <input id="contrsignend" name="contrsignend" type="text" placeholder="Actual Contract Signature – End date" class="form-control input-md" required="">
+                                <span id="contrsignend1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <br><br><br>
+                        <h4>Contract Implementation:</h4>
+                        <br>
+                        <br>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Mobilizationstart">Actual Mobilization – Start date</label>
+                            <div class="col-md-4">
+                                <input id="Mobilizationstart" name="Mobilizationstart" type="text" placeholder="Actual Mobilization – Start date" class="form-control input-md" required="">
+                                <span id="Mobilizationstart1" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Mobilizationend">Actual Mobilization – End date</label>
+                            <div class="col-md-4">
+                                <input id="Mobilizationend" name="Mobilizationend" type="text" placeholder="Actual Mobilization – End date" class="form-control input-md" required="">
+                                <span id="Mobilizationend" class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div id="test9" class="hideable" style="display:none">
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="draftreptstart">Actual Submission of Draft Report – Date</label>
+                                <div class="col-md-4">
+                                    <input id="draftreptstart" name="draftreptstart" type="text" placeholder="Actual Submission of Draft Report – Date" class="form-control input-md" required="">
+                                    <span id="draftreptstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="finalreptstart">Actual Submission of Final Report - Date</label>
+                                <div class="col-md-4">
+                                    <input id="finalreptstart" name="finalreptstart" type="text" placeholder="Actual Submission of Final Report - Date" class="form-control input-md" required="">
+                                    <span id="finalreptstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                        <div id="test13" class="hideable" style="display:none">
+
+
+                            </script>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="arrivalgoodsstart">Actual Arrival of Goods – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="arrivalgoodsstart" name="arrivalgoodsstart" type="text" placeholder="Actual Arrival of Goods – Start date" class="form-control input-md" required="">
+                                    <span id="arrivalgoodsstart1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="arrivalgoodsend">Actual Arrival of Goods – End date</label>
+                                <div class="col-md-4">
+                                    <input id="arrivalgoodsend" name="arrivalgoodsend" type="text" placeholder="Actual Arrival of Goods – End date" class="form-control input-md" required="">
+                                    <span id="arrivalgoodsend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <div id="test23" class="hideable" style="display:none">
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="substcomplend">Actual Substantial Completion Date</label>
+                                <div class="col-md-4">
+                                    <input id="substcomplend" name="substcomplend" type="text" placeholder="Actual Substantial Completion Date" class="form-control input-md" required="">
+                                    <span id="substcomplend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="finalacceptstart">Actual Final Acceptance – Start date</label>
+                                <div class="col-md-4">
+                                    <input id="finalacceptstart" name="finalacceptstart" type="text" placeholder="Actual Final Acceptance – Start date" class="form-control input-md" required="">
+                                    <span id="finalacceptstart" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="finalacceptend">Actual Final Acceptance – End date</label>
+                                <div class="col-md-4">
+                                    <input id="finalacceptend" name="finalacceptend" type="text" placeholder="Actual Final Acceptance – End date" class="form-control input-md" required="">
+                                    <span id="finalacceptend1" class="help-block">YYYY-MM-DD</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="createTender" class="btn btn-lg btn-primary btn-block" type="submit">Submit Tender</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </fieldset>
+
+
+
+                </form>
+
+
+
+
+
+
+            </div>
+
+
+
+            <footer class="footer">
+                <p>&copy; Company 2016</p>
+            </footer>
+
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#Variation').on('change.states', function() {
+                $("#bppapproval").toggle($(this).val() == 'Yes');
+                $('label[for="bppref"]').toggle($(this).val() == 'Yes');
+            }).trigger('change.states');
+        });
+    </script>
+
+
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("media");
+            x.value = x.value.toUpperCase();
+
+
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

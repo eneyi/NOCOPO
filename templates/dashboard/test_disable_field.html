@@ -1,0 +1,32 @@
+<html>
+<head>
+<title></title>
+
+<script type="text/javascript">
+function findselected() { 
+   if (document.form.selmenu.value == '2') {
+      document.form.txtField.disabled=true;
+//      return false;  // not sure this line is needed
+   } else {
+      document.form.txtField.disabled=false;
+//      return false;  // not sure this line is needed
+   }
+} 
+</script>
+
+</head>
+<body>
+ 
+
+
+<form action="" method="POST" name="form" onsubmit="return false"> 
+<select name="selmenu" onChange="findselected()"> 
+<option value="1">Choice 1</option> 
+<option value="2">Choice 2</option> 
+</select> 
+ 
+<input type="text" size="5" name="txtField"> 
+
+</form>
+</body>
+</html>

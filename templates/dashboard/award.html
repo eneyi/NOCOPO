@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+
+
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+    <meta charset="utf-8">
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+     <!-- using bootstrap list-group to display our items dynamically -->
+
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+
+
+
+
+
+<script>
+        //get a partifular contractors info via BPP ID and populte popup with it 
+        function EditBPP(elm) {
+
+            localStorage.setItem('BPPId', document.getElementById('bppno').value);
+            $.ajax({
+                url: '/getContractorById',
+                data: {
+                    id: document.getElementById('bppno').value
+                },
+                type: 'POST',
+                success: function(res) {
+                    console.log(res);
+
+                    // Parse the received JSON string
+                    var data = JSON.parse(res);
+
+                    //Populate the Pop up labels
+                   $('#clist').empty();
+                    $('#contractorTemplate').tmpl(data[0]).appendTo('#clist')
+
+                    // Trigger the Pop Up
+                    $('#confirmModal').modal();
+
+
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+
+
+<script id="contractorTemplate" type="text/x-jQuery-tmpl">
+
+            <li class="list-group-item">
+                <div class="checkbox">
+                    <label>
+               <p>BPP Contractor ID: ${BPP_ID}</p>
+                <br>
+                <p>Registered Company Name: ${Company_Name}</p>
+                <br>
+                <p>CAC Registration Number: ${CAC_Number}</p>
+                <br>
+                
+            </label>
+                
+            </li>
+        </script>
+
+
+
+
+        <!-- confirm popup UI triggered by confirm icon above-->
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="text-align:center;">
+                        <h4 class="modal-title" style="color:black;" id="confirmModalLabel">Confirm Contractor Information:</h4>
+                    </div>
+
+                    <ul id="clist" class="list-group">
+
+
+
+                    </ul>
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+
+
+
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+
+                     <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedAward">Awards</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedContract">Contracts</a>
+                            </li>
+
+
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Award<span style="color:lightgreen;">Form</span></h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+  <br>
+        <br> {% if error %}
+        <p><strong>Error:</strong> {{ error }} {% endif %} {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+
+
+
+
+        <div class="jumbotron">
+
+
+
+
+            <form class="form-horizontal" action="/addAward" method="post">
+
+
+
+                <fieldset>
+
+
+
+                    <hr>
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="ocid">OCID / Project ID</label>
+                        <div class="col-md-4">
+                            <input id="ocid" name="ocid" type="text" placeholder="OCID / Project ID" class="form-control input-md" required="">
+                            <span class="help-block"></span>
+                            <span class="help-block">Mandatory</span>
+
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="title">Award Title</label>
+                        <div class="col-md-4">
+                            <input id="title" name="title" type="text" placeholder="Award Title" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="awardrefno">Award Ref. No.</label>
+                        <div class="col-md-4">
+                            <input id="awardrefno" name="awardrefno" type="text" placeholder="Award Ref. No." class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="projdesc">Award Description</label>
+                        <div class="col-md-4">
+                            <input id="projdesc" name="projdesc" type="text" placeholder="Award Description" class="form-control input-md" required="">
+                            <span class="help-block">Optional</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="tag">Award Status</label>
+                        <div class="col-md-4">
+                            <select id="status" name="status" class="form-control">
+            <option value="">Award Status:</option>
+            <option value="Pending">Pending</option>
+          <option value="Active">Active</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Unsuccessful">Unsuccessful</option>
+           </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="bppref">BPP Certificate of ‘No Objection’ Ref. No.</label>
+                        <div class="col-md-4">
+                            <input id="bppref" name="bppref" type="text" placeholder="BPP Certificate of ‘No Objection’ Ref. No." class="form-control input-md" required="">
+                            <span class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="bppnodate">BPP Certificate of 'No Objection' Date</label>
+                        <div class="col-md-4">
+                            <input id="bppnodate" name="bppnodate" type="text" placeholder="BPP Certificate of 'No Objection' Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="procappdate">Procuring Entity Approval Date</label>
+                        <div class="col-md-4">
+                            <input id="procappdate" name="procappdate" type="text" placeholder="Procuring Entity Approval Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="awarddate">Contract Award Date</label>
+                        <div class="col-md-4">
+                            <input id="awarddate" name="awarddate" type="text" placeholder="Contract Award Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="value">Contract Award Value (NGN)</label>
+                        <div class="col-md-4">
+                            <input id="value" name="value" type="number" placeholder="Contract award Value (NGN)" value=0 class="form-control input-md" required="">
+                            <span class="help-block">Mandatory -- XXXXXXXX.XX, ONLY decimals allowed -- no commas</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="agency_abb">Contractor/Supplier/Consultant Name
+</label>
+                        <div class="col-md-4">
+                            <input id="Awardee" name="Awardee" type="text" placeholder="Contractor/Supplier/Consultant Name
+" class="form-control input-md" required="">
+                            <span class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+
+ <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="bppno">Contractor/Supplier/Consultant BPP ID.</label>
+                        <div class="col-md-4">
+                            <input id="bppno" name="bppno" type="number" placeholder="BPP ID." value=0 class="form-control input-md" required="">
+                            <span class="help-block">Mandatory</span>
+
+                        </div>
+                    </div>
+
+
+                    <button type="button" id="btnCheck" style="display: block; margin: 0 auto;" class="btn btn-primary" onclick="EditBPP(this)"><span></span>Validate Contractor/Supplier/Consultant</button>
+                    <br>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contdetails">Contract Details</label>
+                        <div class="col-md-4">
+                            <input id="contdetails" name="contdetails" type="text" placeholder="Contract Details" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contractstart">Contract Period - Start</label>
+                        <div class="col-md-4">
+                            <input id="contractstart" name="contractstart" type="text" placeholder="Contract Period - Start" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contractend">Contract Period – End</label>
+                        <div class="col-md-4">
+                            <input id="contractend" name="contractend" type="text" placeholder="Contract Period – End" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lowestbid">Awarded to lowest bidder?</label>
+                        <div class="col-md-4">
+                            <select id="lowestbid" name="lowestbid" class="form-control">
+            <option value="">Awarded to lowest bidder?:</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            
+           </select>
+                                       <span class="help-block">Mandatory</span>
+
+                        </div>
+                    </div>
+
+
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#lowestbid').on('change.states', function() {
+                                $("#justify").toggle($(this).val() == 'No');
+                                $("#helpjust").toggle($(this).val() == 'No');
+                                $('label[for="justify"]').toggle($(this).val() == 'No');
+                            }).trigger('change.states');
+                        });
+                    </script>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="justify">Justification for award</label>
+                        <div class="col-md-4">
+                            <input id="justify" name="justify" type="text" placeholder="Justification for award" class="form-control input-md" required="">
+                            <span id="helpjust" class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button style="width:600px" id="createAward" class="btn btn-lg btn-primary btn-block" type="submit">Submit Award</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+
+
+
+
+
+            </form>
+
+
+
+
+
+
+        </div>
+
+
+
+        <footer class="footer">
+            <p>&copy; Company 2016</p>
+        </footer>
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

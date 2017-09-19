@@ -1,0 +1,212 @@
+{% extends "layouts/base.html" %}
+{% block title %}NOCOPO| Process {% endblock %}
+
+{% block style %}
+    <style>
+
+        header {
+            height: auto;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ephizy {
+            width: 80%;
+            margin: auto;
+            margin-bottom: 40px;
+            border: 0.5px solid lightgray;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            font-family: source-sans-pro, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .heading3 {
+            text-align: center;
+            font-family: gothic;
+            font-weight: bolder;
+            color: #355555;
+        }
+
+        .img-rounded {
+            border: 12px solid #355555;
+            border-radius: 100%;
+        }
+
+        .right .img-rounded {
+            margin-left: 30%;
+        }
+
+        .left .img-rounded {
+            margin-right: 30%;
+        }
+
+        .details {
+            width: 100%;
+            font-family: gothic;
+            color: black;
+            text-align: justify;
+        }
+
+        .btn {
+            background: #355555;
+            color: snow;
+        }
+
+        .panel {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+{% block pagetitle %}
+    <h1 class="wow fadeIn" style="font-size:50px;padding-top:80px;"><span style="color:lightgreen;">NOC</span>Open<span
+            style="color:lightgreen;">Process</span></h1>{% endblock %}
+{% block error %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <br><br><br><br>
+            <div class="col-lg-12">
+                <p class="ephizy"
+                   style="padding:30px;font-weight:bolder; color:#355555;font-size:14px;text-align:justify;">
+                    <span style="color:crimson; font-weight:bolder;">About the initiative:</span><br>
+                    Over the past decade, there has been a global movement with different initiatives (public, private
+                    and donor-led) focusing on opening up contracting with the main aim of fighting corruption,
+                    fostering transparency and encouraging participatory governance. <br>
+                    Public projects such as health, education, infrastructure and agriculture, often drive the
+                    development agenda of most governments, however given the amounts involved during government
+                    contracting, corruption becomes the government’s biggest risk. 15% of global GDP is spent annually
+                    on government contracts amounting to $9.5 trillion, while in Nigeria public procurement in 2015
+                    totalled x amount. Their successful implementation and achievement of project objectives is
+                    predicted by, among other things, on the public procurement process: planning, supplier selection
+                    and contract management, that is transparent and open to ensure funds are absorbed into specified
+                    projects and the government is accountable to its citizens. <br>
+                <h3>Objectives of the initiative</h3>
+                <ul>
+                    <li>One stop-shop for public contract information</li>
+                    <li>Prevent fraud and corruption & enhance transparency in public procurement</li>
+                    <li>Monitor contract implementation to ensure accountability</li>
+                    <li>Better value for money for the governmen</li>
+                    <li>Inclusivity for local firms (including SMEs) in government contracting</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row right panel">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/hands.jpg">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Join The Project</h3>
+                            <p class="details">Open contracting is about publishing and using open, accessible and
+                                timely information on government contracting to engage citizens and businesses in
+                                identifying and fixing problems.
+                                Design concept<br>
+                                Buy-in from key stakeholders (public, private, CSOs)<br>
+                                Streamline operational process with guidelines of BPP’s e-procurement system<br>
+                                Functional and operational open contracting portal
+                            </p>
+                            <a class="btn btn-lg" href="/agency_registration">Register</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row left panel">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Planning</h3>
+
+                            <p class="details">Procurement planning is the process of deciding what to buy, when and
+                                from what source. During the procurement planning process the procurement method is
+                                assigned and the expectations for fulfillment of procurement requirements
+                                determined.</p>
+                            <li>Procurement plan driven by needs assessment</li>
+
+                            <a class="btn btn-lg" href="/new_plan">Planning</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/plan.jpg">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row right panel">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/tender.jpg">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Tender</h3>
+                            <p class="details">A company or organisation (the promoter, client or employer) wishing to
+                                obtain goods or services will first specify its requirements. Subsequently, it will open
+                                the bidding in a process known as tendering. Interested companies can then submit their
+                                proposals to the client (often a local government) to meet these requirements.</p><br>
+                            <li>Fill in tender details</li>
+                            <li>Bids submission</li>
+                            <a class="btn btn-lg" href="/new_tender">Tender</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row left panel">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Award</h3>
+
+                            <p class="details">An evaluation team will examine each tender received and make
+                                recommendations to the procuring body as to which represents the best tender.</p>
+                            <a class="btn btn-lg" href="/new_award">Awarded</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/award.jpg">
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row right panel">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/contract.jpg">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Contract</h3>
+                            <p class="details">Once the contract has been awarded, the successful and unsuccessful
+                                tenderers will be notified.
+                            </p>
+                            <a class="btn btn-lg" href="/new_release">Contract</a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row left panel">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h3 class="heading3">Implementation</h3>
+
+                            <p class="details">The execution of all contracts can be directly and openly monitored for
+                                progress and implementation quality.</p>
+                            <a class="btn btn-lg" href="/update_implementation">Implementation</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="img-responsive img-rounded" src="/static/img/implementation.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

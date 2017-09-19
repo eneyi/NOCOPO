@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <title>NOC Nigeria | Register</title>
+ <meta name="keywords" content="Open Procurements | Contracts | Nigeria">
+ <meta name="description" content="">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+ <meta property="og:title" content="">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="">
+ <meta property="og:site_name" content="">
+ <meta property="og:description" content="">
+       <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="../static/js/jquery-3.1.1.js"></script>
+    <script src="../static/js/signUp.js"></script>
+
+
+
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+
+
+<style>
+   form .form-group label{font-family: Arial; line-height: 200%;font-size:16.5px;color:#355555;}
+   form .form-group .help-block{font-family:gothic; color:lightslategray; text-align:center;font-style:italic;}
+   header{height:400px;}
+   .submit{background:#355555; color:snow;}
+   .submit:hover{background:snow; color:#355555;border:2px solid #355555;}
+</style>
+
+
+
+
+
+</head>
+
+
+
+<body>
+   <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+   <div class="container">
+       <!-- Brand and toggle get grouped for better mobile display -->
+       <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+           </button>
+           <a class="navbar-brand page-scroll" href="#page-top">NOC</a>
+       </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <ul class="nav navbar-nav navbar-right">
+               <li>
+                   <a class="p" href="/">Home</a>
+               </li>
+               <li>
+                   <a class="page-scroll" href="/showSignin">Sign In</a>
+               </li>
+               <li>
+                   <a class="active" href="#">Sign Up</a>
+               </li>
+                
+
+           </ul>
+       </div>
+       <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container-fluid -->
+ </nav>
+
+
+ <header>
+  <br><br><br><br>
+
+     <div class="container-fluid">
+       <div class="row">
+         <div class="col-sm-10 col-sm-offset-1 text-center container">
+           <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Registration<span style="color:lightgreen;">Form</span></h1>
+           <br />
+         </div>
+       </div>
+     </div>
+   </header>
+
+
+
+
+<div class="container" style="width:80%; margin:auto;">
+       <br><br><br><br>
+       <form class="form-horizontal">
+   <fieldset>
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="ministry_name">Ministry / Parastatal</label>
+         <div class="col-md-4">
+         <input id="ministry_name" name="ministry_name" type="text" placeholder="Ministry / Parastatal" class="form-control input-md" required="">
+         <span class="help-block">Name of Parastatal/Ministry e.g Ministry of Education</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_name">Agency Name</label>
+         <div class="col-md-4">
+         <input id="agency_name" name="agency_name" type="text" placeholder="Agency Name" class="form-control input-md" required="">
+         <span class="help-block">Name of Agency within Ministry e.g University of Ilorin</span>
+         </div>
+       </div>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_abb">Agency Abbreviation</label>
+         <div class="col-md-4">
+         <input id="agency_abb" name="agency_abb" type="text" placeholder="Agency Abbreviation" class="form-control input-md" required="">
+         <span class="help-block">Abbreviation For Agency e.g moe_uniilorin</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="action_party">Action Party</label>
+         <div class="col-md-4">
+         <input id="action_party" name="action_party" type="text" placeholder="Action Party" class="form-control input-md" required="">
+         <span class="help-block">Name of Officer/Individual Monitoring or Overseeing Projects</span>
+         </div>
+       </div>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="champions">Champion</label>
+         <div class="col-md-4">
+         <input id="champions" name="champions" type="text" placeholder="Champion" class="form-control input-md" required="">
+         <span class="help-block">Name of 2nd Officer/Individual Monitoring or Overseeing Projects</span>
+         </div>
+       </div>
+
+
+
+
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="action_party_role">Action Party Role</label>
+         <div class="col-md-4">
+         <input id="action_party_role" name="action_party_role" type="text" placeholder="Action Party Job Role" class="form-control input-md" required="">
+         <span class="help-block">Role of Officer/Individual Monitoring or Overseeing Projects</span>
+         </div>
+       </div>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="champions_role">Champion Role</label>
+         <div class="col-md-4">
+         <input id="champions_role" name="champions_role" type="text" placeholder="Champion Job Role" class="form-control input-md" required="">
+         <span class="help-block">Role of 2nd Officer/Individual Monitoring or Overseeing Projects</span>
+         </div>
+       </div>
+
+
+       <hr>
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="state">Agency State</label>
+         <div class="col-md-4">
+           <select id="state" name="state" class="form-control">
+		        <option value="">Choose State:</option>
+            <option value="Abuja/FCT">Abuja</option>
+		        <option value="Abia">Abia</option>
+		        <option value="Adamawa">Adamawa</option>
+		        <option value="Akwaibom">Akwa Ibom</option>
+		        <option value="Anambra">Anambra</option>
+		        <option value="Bauchi">Bauchi</option>
+		        <option value="Bayelsa">Bayelsa</option>
+		        <option value="Benue">Benue</option>
+		        <option value="Borno">Borno</option>
+		        <option value="Cross River">Cross River</option>
+		        <option value="Delta">Delta</option>
+		        <option value="Ebonyi">Ebonyi</option>
+		        <option value="Edo">Edo</option>
+		        <option value="Ekiti">Ekiti</option>
+		        <option value="Enugu">Enugu</option>
+		        <option value="Gombe">Gombe</option>
+		        <option value="Imo">Imo</option>
+		        <option value="Jigawa">Jigawa</option>
+		        <option value="Kaduna">Kaduna</option>
+		        <option value="Kano">Kano</option>
+		        <option value="Katsina">Katsina</option>
+		        <option value="Kebbi">Kebbi</option>
+		        <option value="Kogi">Kogi</option>
+		        <option value="Kwara">Kwara</option>
+		        <option value="Lagos">Lagos</option>
+		        <option value="Nassarawa">Nassarawa</option>
+		        <option value="Niger">Niger</option>
+		        <option value="Ogun">Ogun</option>
+		        <option value="Ondo">Ondo</option>
+		        <option value="Osun">Osun</option>
+		        <option value="Oyo">Oyo</option>
+		        <option value="Plateau">Plateau</option>
+		        <option value="Rivers">Rivers</option>
+		        <option value="Sokoto">Sokoto</option>
+		        <option value="Taraba">Taraba</option>
+		        <option value="Yobe">Yobe</option>
+		        <option value="Zamfara">Zamfara</option>
+           </select>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_locality">Agency Locality/City</label>
+         <div class="col-md-4">
+         <input id="agency_locality" name="agency_locality" type="text" placeholder="City" class="form-control input-md" required="">
+         <span class="help-block">Lekki</span>
+         </div>
+       </div>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="agency_street">Agency Street Address</label>
+         <div class="col-md-4">
+         <input id="agency_street" name="agency_street" type="text" placeholder="Street" class="form-control input-md" required="">
+         <span class="help-block">11 Bankonle Road</span>
+         </div>
+       </div>
+
+       <hr>
+
+        <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="contactphone">Agency Contact Phone</label>
+         <div class="col-md-4">
+         <input id="contactphone" name="contactphone" type="text" placeholder="Phone Number" class="form-control input-md" required="">
+
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="contactemail">Email</label>
+         <div class="col-md-4">
+         <input id="contactemail" name="contactemail" type="email" placeholder="Email Address" class="form-control input-md" required="">
+
+         </div>
+       </div>
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="fax">Agency Contact Fax</label>
+         <div class="col-md-4">
+         <input id="fax" name="fax" type="tel" placeholder="Agency Fax" class="form-control input-md" required="">
+         <span class="help-block">agency@..org</span>
+         </div>
+       </div>
+
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="url">Agency Contact Fax</label>
+         <div class="col-md-4">
+         <input id="url" name="url" type="text" placeholder="Website" class="form-control input-md" required="">
+         <span class="help-block">www.agency.com</span>
+         </div>
+       </div>
+
+
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="username">Agency Username</label>
+         <div class="col-md-4">
+         <input id="username" name="username" type="text" placeholder="Username" class="form-control input-md" required="">
+         <span class="help-block">agric_min</span>
+         </div>
+       </div>
+
+       <!-- Text input-->
+       <div class="form-group">
+         <label class="col-md-4 control-label" for="password">Agency Password</label>
+         <div class="col-md-4">
+         <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">
+         <span class="help-block">#opoikdnbdb</span>
+         </div>
+       </div>
+
+
+       <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+           <button id="btnSignUp" class="btn btn-default" type="button">Sign up</button>
+
+           </div>
+       </div>
+
+       </fieldset>
+       </form>
+</div>
+
+</body>
+</html>

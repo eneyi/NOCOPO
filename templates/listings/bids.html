@@ -1,0 +1,164 @@
+{% extends "layouts/listings.html" %}
+{% block title %}NOCOPO | Tenders{% endblock %}
+{% block headerheight %}height:300px{% endblock %}
+
+{% block style %}
+    <style>
+    *{font-family:Verdana, Arial, sans-serif;}
+        .mdl-switch__ripple-container .mdl-ripple {
+            background: #355555;
+        }
+        .grand{font-weight:bolder;font-size:14px;color:#355555;}
+    .titled{font-weight:bolder;color:#355555;}
+    .subtitle{font-weight:bolder;color:darkgoldenrod;margin-right:5px;}
+    </style>
+{% endblock %}
+{% block pagetitle %}
+                        <h1 class="wow fadeIn" style="font-size:3em;padding-top:80px;"><span style="color:lightgreen;">NOCOPO</span>Tenders<span style="color:lightgreen;"></span></h1>{% endblock %}
+
+{% block sidebar %}
+    {% include 'layouts/sidebarfilters.html' %}
+    <br>
+
+{% endblock %}
+
+
+{% block listings %}
+    {% for item in bids %}
+        {% set rowloop = loop %}
+
+        {% if item.tender.tenderPeriod and item.tender.tenderPeriod.startDate and item.tender.tenderPeriod.endDate %}
+            {% set startDate = item.tender.tenderPeriod.startDate | datetime %}
+            {% set endDate = item.tender.tenderPeriod.endDate | datetime %}
+            {% set biddingduration = interval(endDate, startDate) %}
+        {% else %}
+            {% set startDate = "2014/01/01" | datetime %}
+            {% set endDate = "2014/01/01" | datetime %}
+            {% set biddingduration = interval(endDate, startDate) %}
+        {% endif %}
+
+
+
+
+        <div class="cma list-group list-group-root well">
+
+
+
+
+          
+                <a href="#" class="list-group-item list-group-item-danger">
+                 <span class="grand"> {{ item.tender.title }}</span>
+                    <span style="color:red;font-weight:bolder; font-size:1vw;" class="pull-right">Closed <i
+                            class="fa fa-toggle-off" style="color:red;"></i></span>
+                </a>
+            
+
+
+
+            <a href="#" class="list-group-item" data-toggle="collapse">
+                <span class="titled">{{ item.buyer.identifier.legalName | title }} <span class="pull-right"
+                                                                                         style="color:#355555;"><i
+                        class="fa fa-globe"></i></span></span>
+            </a>
+            <a href="#" class="list-group-item" data-toggle="collapse">
+                <span class="titled">{{ startDate }}  --- {{ endDate }} <span class="pull-right" style="color:#355555;"><i
+                        class="fa fa-calendar"></i></span></span>
+            </a>
+            <a href="#item-{{ rowloop.index }}-1" class="list-group-item" data-toggle="collapse">
+                <span class="titled" style="width:70%;">  <i class="fa fa-chevron-right" id="switcher"></i> Bid<span
+                        class="pull-right" style="color:#355555;"><i class="fa fa-download" data-toggle="modal"
+                                                                     data-target="#exampleModalLong{{ rowloop.index }}"></i></span></span>
+            </a>
+            <div class="modal fade" id="exampleModalLong{{ rowloop.index }}" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 style="font-weight:bolder;font-size:10px;color:#355555;text-align:center;"
+                                class="modal-title"
+                                id="exampleModalLongTitle">Bid Data For {{ item.tender.title | title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% if item.tender.tenderPeriod %}
+                                {{ item.tender }}
+                            {% else %}
+                                SORRY THERE IS NO TENDERING PERIOD RECORDED FOR THIS CONTRACT
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Close
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group collapse" id="item-{{ rowloop.index }}-1">
+                <a href="#" class="list-group-item"><span
+                        class="subtitle">Procuring Entity: </span>{{ item.tender.procuringEntity.name }}</a>
+                <a href="#" class="list-group-item"><span class="subtitle">Start Date: </span>{{ startDate }}</a>
+                <a href="#" class="list-group-item"><span class="subtitle">End Date: </span>{{ endDate }}</a>
+                <a href="#" class="list-group-item"><span
+                        class="subtitle">Procurement Method: </span>{{ item.tender.procurementMethod | title }}</a>
+                <a href="#" class="list-group-item"><span
+                        class="subtitle">Current Price: </span>N{{ item.tender.value.amount }}</a>
+                <a href="#" class="list-group-item"><span class="subtitle">Tender Reference: </span>{{ item.ocid }}</a>
+
+            </div>
+
+            <br>
+
+
+        </div>
+
+    {% endfor %}
+{% endblock %}
+
+{% block scripting %}
+    <script>
+        $(function () {
+
+            $('.list-group-item').on('click', function () {
+                $('#switcher', this)
+                    .toggleClass('fa-chevron-right')
+                    .toggleClass('fa-chevron-down');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".cma").slice(0, 4).show();
+            $("#loadMore").on('click', function (e) {
+                e.preventDefault();
+                $(".cma:hidden").slice(0, 4).slideDown();
+                if ($(".cma:hidden").length == 0) {
+                    $("#load").fadeOut('slow');
+                }
+                $('html,body').animate({
+                    scrollTop: $(this).offset().top
+                }, 1500);
+            });
+        });
+
+        $('a[href=#top]').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.totop a').fadeIn();
+            } else {
+                $('.totop a').fadeOut();
+            }
+        });
+    </script>
+{% endblock %}
+

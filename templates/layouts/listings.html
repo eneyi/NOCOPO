@@ -1,0 +1,111 @@
+{% extends 'layouts/base.html' %}
+
+
+
+{% block header %}
+
+    <header style="{% block headerheight %}height:100px{% endblock %};padding-top:0;margin-top:0;">
+        {% include 'layouts/navbar.html' %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                    {% block pagetitle %}
+                        <h1 class="wow fadeIn" style="font-size:3em;padding-top:80px;"><span style="color:lightgreen;">NOC</span>Open<span
+                                style="color:lightgreen;">Contracts</span></h1>{% endblock %}
+                    <br>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% block top %}
+            <section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+
+                    </div>
+                </div>
+            </section>
+        {% endblock %}
+        <hr>
+
+        <section>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="just-padding">
+                            {% block sidebar %}
+                            {% endblock %}
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-9 col-lg-9">
+                        <div class="just-padding grid">
+                            {% block listings %}
+                            {% endblock %}
+                            <div class="">
+                                <div class="col-md-6 col-sm-6">
+                                    <button id="loadMore" class="btn btn-lg"
+                                            style="position:relative;margin-top:30px;margin-left:25%;background:#355555;color:snow;"
+                                            type="button">Load More
+                                    </button>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <button id="showLess" class="btn btn-lg totop"
+                                            style="position:relative;margin-top:30px;margin-left:25%;background:#355555;"
+                                            type="button"><a href="#top" style="color:snow;">Back to top</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripting %}
+    <script>
+        $(function () {
+
+            $('.list-group-item').on('click', function () {
+                $('.fa', this)
+                    .toggleClass('fa-chevron-right')
+                    .toggleClass('fa-chevron-down');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".cma").slice(0, 4).show();
+            $("#loadMore").on('click', function (e) {
+                e.preventDefault();
+                $(".cma:hidden").slice(0, 4).slideDown();
+                if ($(".cma:hidden").length == 0) {
+                    $("#load").fadeOut('slow');
+                }
+                $('html,body').animate({
+                    scrollTop: $(this).offset().top
+                }, 1500);
+            });
+        });
+
+        $('a[href=#top]').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.totop a').fadeIn();
+            } else {
+                $('.totop a').fadeOut();
+            }
+        });
+    </script>
+{% endblock %}

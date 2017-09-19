@@ -1,0 +1,232 @@
+{% extends 'layouts/listings.html' %}
+{% block title %}NOCOPO | Contracts {% endblock %}
+{% block style %}
+    <link href="static/css/contracts.css" type="text/css" rel="stylesheet"/>
+    <script src="/static/js/d3.min.js" type="text/javascript"></script>
+    <link href="static/css/index.css" type="text/css" rel="stylesheet"/>
+    <script src="/static/js/index.js" type="text/javascript"></script>
+    <style>
+    .modal-content{
+        -webkit-box-shadow: 0px;
+        -moz-box-shadow: 0px;
+        box-shadow: 0px;box-shadow:0 0 0 rgba(0,0,0,0);border:none;}
+    .modal-content-text{text-align:left;font-family:Verdana, Arial, sans-serif; font-size:12px;color:#355555;}
+    .modal-content-title{margin-right:10px; color:darkgoldenrod;font-weight:bolder;}
+    </style>
+
+{% endblock %}
+
+{% block top %}{% include 'reports/bubbles.html' %}{% endblock %}
+
+{% block sidebar %}
+   {% include 'layouts/sidebarfilters.html' %}
+{% endblock %}
+<hr>
+{% block listings %}
+
+
+
+
+    <ul class="event-list">
+        {% for item in contracts %}
+            {% set rowloop = loop %}
+            {% set ocid = item.ocid %}
+
+
+
+
+
+
+
+            {% set state = "Nigeria" %}
+
+
+
+            <li class="event_item" id="{{item.ocid}}">
+                <time datetime="{{ item.date }}">
+                    {% for cont in item.contracts %}
+                        {% for miles in cont.implementation.milestones %}
+                            {% set prog = miles.description | float * 100 %}
+                            <span class="day"
+                                  style="padding-top:35%;">{{ prog }}%<br>{{ "COMPLETED" if prog == 100.0 else "ON-GOING" }}</span>
+                        {% endfor %}
+                    {% endfor %}
+
+                </time>
+
+                <div class="info">
+
+                    <h2 class="title" style="font-weight:bolder;color:#355555;font-size:14px;font-family:monospace;">
+                        <span class="subh">Project Title:</span> {{ item.tender.title | title }}</h2>
+                    <h2 class="title" style="font-family:monospace;font-weight:bolder;color:#355555;font-size:12px;">
+                        <span class="subh">Project OCID:</span> {{ item.ocid }}</h2>
+                    <h2 class="title" style="font-weight:bolder;color:#355555;font-size:12px; font-family:monospace;">
+                        <span class="subh">Legal Buyer:</span> {{ item.buyer.identifier.legalName | title }}</h2>
+                    {% for cont in item.contracts %}
+
+
+
+                        {% set endDate = cont.period.endDate | datetime %}
+
+
+                        {% for award in item.awards %}
+                            {% set startDate = award.date | datetime %}
+                            <p class="desc" style="font-weight:bolder;color:#355555;font-size:12px;"><span class="subh"> Contract Period:</span> {{ startDate }}
+                                ---- {{ endDate }}</p>
+
+
+
+                            <br>
+                            <ul class="info-footer">
+                            <li style="width:20%;text-align:left;padding-left:5px;font-size:11px;color:#355555;font-family:monospace;">
+                                <i style="color:#a3c2c2;" class="fa fa-calendar"></i> {{ interval(endDate, startDate) }}</li>
+                        {% endfor %}{% endfor %}
+                    <li style="width:20%;text-align:left;color:#355555;font-family:monospace;"><i style="color:#a3c2c2;"
+                                                                                                  class="fa fa-tags"></i>
+                        {% for tag in item.tag %}{{ tag | title }}{% endfor %} Stage
+                    </li>
+
+
+
+
+                    </ul>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="facebook" style="width:33%;"><a href="https://www.facebook.com/profile.php?id=100013978755241"><span class="fa fa-facebook"></span></a>
+                        </li>
+                        <li class="twitter" style="width:34%;"><a href="https://twitter.com/ocnigeria"><span
+                                class="fa fa-twitter"></span></a></li>
+                        <li class="google-plus" style="width:33%;"><a href="#google-plus"><span
+                                class="fa fa-comments-o"></span></a></li>
+                        <li class="ocid-download" style="width:33%;"><i data-toggle="modal"
+                                                                        data-target="#exampleModalLong{{ rowloop.index }}"
+                                                                        style="color:#a3c2c2;"
+                                                                        class="fa fa-eye"></i></li>
+                        <div class="modal fade" id="exampleModalLong{{ rowloop.index }}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 style="font-weight:bolder;font-size:10px;color:#355555;text-align:center;"
+                                            class="modal-title"
+                                            id="exampleModalLongTitle">{{ item.tender.title | title }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">OCID:</span> {{ item.ocid }}</p>
+                                        </div>
+                                        <hr>
+                                     <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Description:</span>{{ item.tender.description | title }}</p>
+                                        </div>
+                                    <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Current Stage:</span> {% for tag in item.tag %}{{ tag }}{% endfor %}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Buyer:</span> {{ item.buyer.identifier.legalName }}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Procurement Method:</span> {{ item.tender.procurementMethod }}</p>
+                                        </div>
+                                        <hr>
+
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Contract Value:</span>N{{ item.tender.value.amount }}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Awarded On:</span>{% for award in item.awards %}{{ award.date | datetime}}{% endfor %}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Amount Awarded:</span>{% for award in item.awards %}{{ award.value.amount }}{% endfor %}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Awarded To:</span>{% for award in item.awards %}{% for supplier in award.suppliers %}{{ supplier.identifier.legalName | title }}{% endfor %}{% endfor %}</p>
+                                        </div>
+                                        <hr>
+             {% for cons in item.contracts %}
+                 {% set endDate = cons.period.endDate | datetime %}
+                 {% for award in item.awards %}
+                            {% set startDate = award.date | datetime %}
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Contract Duration:</span> {{ interval(endDate, startDate) }}</p>
+                                        </div>
+                                        <hr>
+           {% for co in cons.implementation.milestones %}
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Last Updated Status:</span>{{ co.status }}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="modal-content">
+                                            <p class="modal-content-text"><span class="modal-content-title">Last Updated Progress:</span>{{ co.description | float * 100 }}%</p>
+                                        </div>
+                                                {% endfor %}{% endfor %}{% endfor %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close
+                                        </button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+                <br>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block scripting %}
+    <script>
+        $(function () {
+            $(".event_item").slice(0, 4).show().css({'display': 'flex'});
+            $("#loadMore").on('click', function (e) {
+                e.preventDefault();
+                $(".event_item:hidden").slice(0, 4).slideDown().css({'display': 'flex'});
+                if ($(".event_item:hidden").length == 0) {
+                    $("#load").fadeOut('slow');
+                }
+                $('html,body').animate({
+                    scrollTop: $(this).offset().top
+                }, 1500);
+            });
+        });
+
+        $('a[href=#top]').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.totop a').fadeIn();
+            } else {
+                $('.totop a').fadeOut();
+            }
+        });
+    </script>
+{% endblock %}

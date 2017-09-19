@@ -1,0 +1,55 @@
+{% extends 'layouts/listings.html' %}
+{% block style %}
+<link href="static/css/contracts.css" type="text/css" rel="stylesheet"/>
+    <style>
+    .titled{font-weight:bolder;color:#355555;padding-left:5px;}
+    .describe{padding:20px;line-height:20px;font-size:12px;text-align:justify; color:darkgoldenrod;font-family:monospace;}
+    .title2{color:darkgray;}
+    </style>
+
+{% endblock %}
+{% block headerheight %}height:300px{% endblock %}
+ {% block pagetitle %}<h1 class="wow fadeIn" style="font-size:3em;padding-top:80px;"><span style="color:lightgreen;">Civil</span>Society<span style="color:lightgreen;">Organizations</span></h1>{% endblock %}
+
+
+{% block sidebar %}
+{% include 'layouts/sidebarcontact.html' %}
+
+{% endblock %}
+<hr>
+{% block listings %}
+
+
+
+
+
+
+
+                {% for item in csos %}
+                {% set rowloop = loop %}
+
+                <div class="cma list-group list-group-root list-group-success well">
+
+
+                <a href="#" class="list-group-item" data-toggle="collapse">
+                    <span style="font-size:18px;padding-left:50px;" class="titled">{{item.cso}}</span>
+                </a>
+                <a href="#item-{{rowloop.index}}" class="list-group-item" data-toggle="collapse">
+                    <span class="titled title2" style="width:70%;"><i class="fa fa-chevron-right"></i>  Description</span>
+                </a>
+                <div class="list-group collapse" id="item-{{loop.index}}">
+                    <p class="describe">{{item.description}}</p>
+                </div>
+								<a href="#" class="list-group-item" data-toggle="collapse">
+                    <span style="font-size:18px;padding-left:50px;" class="title2">Addresss:</span>
+                </a>
+                <br>
+                </div>
+                {% endfor %}
+
+
+
+
+
+
+{% endblock %}

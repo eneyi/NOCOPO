@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+{% block pagetitle %}<h1 class="wow fadeIn" style="font-size:3em;padding-top:80px;"><span
+        style="color:lightgreen;">BPP</span>Contact<span
+        style="color:lightgreen;"></span></h1>{% endblock %}
+{% block style %}
+    <link href="/static/css/forms.css">
+    <style>
+        .jumbotron {
+            width: 60%;
+            margin: auto;
+        }
+
+        input, .mdl-textfield {
+            width: 80%;
+        }
+
+        label {
+            text-align: left;
+            font-weight: bolder;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <br><br><br>
+    <div class="jumbotron">
+        {% with messages = get_flashed_messages() %}
+            <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Notice</strong><br>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/messagefrom/contact" method="post">
+
+
+            <br>
+            <h5 style="color:darkgoldenrod;font-weight:bolder;text-align:center;">Contact BPP</h5>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="firstname" name="firstname" required>
+                <label class="mdl-textfield__label" for="firstname">Firstname</label>
+            </div>
+            <br>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="lastname" name="lastname" required>
+                <label class="mdl-textfield__label" for="lastname">Lastname</label>
+            </div>
+            <br>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="email" name="email" required>
+                <label class="mdl-textfield__label" for="email">Email</label>
+            </div>
+            <br>
+            <br>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="phone" name="phone"
+                       required>
+                <label class="mdl-textfield__label" for="text2">Phone</label>
+
+            </div>
+            <br>
+            <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" type="text" rows="3" id="message" name="message"
+                          required></textarea>
+                <label class="mdl-textfield__label" for="text7">Message</label>
+            </div>
+            <button id="btnSignIn" style="width:40%;margin:auto;" class="btn btn-lg btn-primary btn-block"
+                    type="submit">Send
+            </button>
+
+        </form>
+
+        <br><br><br>
+    </div>
+    <br><br>
+{% endblock %}

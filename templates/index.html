@@ -1,0 +1,273 @@
+{% extends "layouts/base.html" %} {% block title %}NOCOPO| Home{% endblock %} {% block extras %}
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href='/static/css/mapbox.css' rel='stylesheet' type='text/css'>
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.css' rel='stylesheet'/>
+    {% block counter %}
+        <style>
+            .mynav li {
+                display: inline-block;
+                list-sytle: none;
+                margin-left: 30px;
+            }
+
+            .mynav li a {
+                color: snow;
+                font-weight: bolder;
+                font-family: gothic;
+            }
+        </style>{% endblock %} {% endblock %} {% block header %}
+    <header>
+        {% include 'layouts/navbar.html' %}
+        <div class="container">
+            <div class="row header-info">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                    <h1 class="wow fadeIn" style="margin-top:150px;"><span style="color:lightgreen;margin-top:100px;">NO</span>CO<span
+                            style="color:lightgreen;">PO</span></h1>
+                    <br/>
+                    <p class="lead wow fadeIn" data-wow-delay="0.5s" style="color:black; font-weight:bolder;">Nigerian Open Contracting Portal</p>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                            <div class="row">
+                                <div class="col-xs-12 text-center wow" data-wow-delay="1s">
+                                    <a href="/contracts" target="_blank" class="btn btn-warning btn-lg"
+                                       style="font-weight:bolder; font-size:20px;">Number of Contracts:
+                                        <span class="counter">292</span> <i class="fa fa-arrow-right"
+                                                                            style="font-weight:25px"></i></a>
+                                </div>
+                                <br>
+                                <div class="col-xs-12 text-center wow" data-wow-delay="1s">
+                                    <a href="/contracts" target="_blank" class="btn btn-warning btn-lg"
+                                       style="background-color:lightgreen;font-weight:bolder; font-size:20px;">Contracts'
+                                        Value:
+                                        N<span class="counter">98,768,987,998</span> <i class="fa fa-arrow-right"
+                                                                                        style="font-weight:25px"></i></a>
+                                </div>
+
+                                <br>
+
+                            </div>
+
+
+                            <!--End Button Row-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+<div class="mouse-icon hidden-xs">
+    <div class="scroll"></div>
+</div>
+{% block content %}
+    <section id="main-info" class="pad-xl"
+             style="padding-top:0;padding-top:100px;padding-bottom:0;padding-bottom:100px;">
+        <div class="container" style="width:80%; margin:auto; background:transperent;">
+            <p style="color:#355555; background:transparent; font-family:gothic, sans-serif; font-weight:bolder; text-align:justify;margin-bottom:30px;">
+                Enhancing Transperency in public procurement to ensure efficient service delivery, improved value of
+                money, while fostering an equitable business environment for Nigeria. Simply making the <a
+                    href="/bppprocess">Procurement Available to All</a>
+            </p>
+            <p style="color:#355555; background:transparent; font-family:gothic, sans-serif; font-weight:bolder; text-align:justify;margin-bottom:30px;">
+                Out of 175 countries ranked on Transparency International’s corruption index, Nigeria ranks 136th and
+                government contracting is known as one of the biggest avenues that fuels corruption in Nigeria. Opening
+                up government contracting in Nigeria will build
+                trust, reduce corruption and ensure that the billions of naira spent on contracts improve service
+                delivery for citizens of Nigeria.
+            </p>
+            <p style="width:60%;color:#355555; background:transparent; font-family:gothic, sans-serif; font-weight:bolder; text-align:justify;margin-bottom:30px;margin-left:40%;">
+                "Open contracting is about publishing and using open, accessible and timely information on government
+                contracting to engage citizens and businesses in identifying and fixing problems."
+                <br><span style="margin-right:0; font-size:12px;font-style:italic;" class="pull-right">Open Contracting Partnership</span>
+            </p>
+
+        </div>
+    </section>
+
+
+      <!--Pricing-->
+    <section id="be-the-first" class="pad-lg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.4s">
+                    <hr class="line purple">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/bids">For Suppliers</a></h3>
+                            </div>
+                            <div class="panel-body">View Open tenders, adverts and on-going contracts.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.8s">
+                    <hr class="line green">
+                    <div class="col-md-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/showSignin">For Procurers</a></h3>
+                            </div>
+                            <div class="panel-body">All parastatals and ministries are encouraged to register contracts
+                                for inclusiveness and transperency. <a href="/agency_registration" target="_blank">Register
+                                    Now.</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="1.2s">
+                    <hr class="line yellow">
+                    <div class="col-md-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/open_api" target="_blank">Open Data API</a></h3>
+                            </div>
+                            <div class="panel-body">Browse our free data sets. Register to download Data, JSON, XML,
+                                CSV. Print Reports.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.4s">
+                    <hr class="line purple">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/tenders">Citizens</a></h3>
+                            </div>
+                            <div class="panel-body">View our interactive dashboard displaying an overview of yearly
+                                procurement process.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.8s">
+                    <hr class="line green">
+                    <div class="col-md-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="/forcsos">For CSOS</a></h3>
+                            </div>
+                            <div class="panel-body">CSOs have real-time access to our reliable database to monitor
+                                project execution and fundings.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="1.2s">
+                    <hr class="line yellow">
+                    <div class="col-md-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="#">For The Private Sector</a></h3>
+                                <span class="pull-right clickable"></span>
+                            </div>
+                            <div class="panel-body">View Contractors, reliability index, impact factor and Ratings.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="main-info" class="pad-xl"
+             style="padding-top:0;padding-top:100px;padding-bottom:0;padding-bottom:100px;">
+        <div class="container">
+            <div class="row features" style="background:transparent;">
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="http://bpp.gov.ng" target="_blank">
+                            <div class="inicon bpp"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="http://undp.org" target="_blank">
+                            <div class="inicon united"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="http://www.statehouse.gov.ng/" target="_blank">
+                            <div class="inicon nigeria"></div>
+                        </a>
+                    </div>
+                </div>
+                <!--
+            <div class="col-lg-2 col-sm-4">
+                <div class="hexicon">
+                    <div class="inicon naira"></div>
+                </div>
+            </div>
+            -->
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="/forcsos" target="_blank">
+                            <div class="inicon cso"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="http://www.open-contracting.org" target="_blank">
+                            <div class="inicon ocp"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-4">
+                    <div class="hexicon">
+                        <a href="http//beegeye.com" target="_blank">
+                            <div class="inicon beegserve"></div>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+    {% include 'reports/mapbox.html' %}
+{% endblock %} {% block scripting %}
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <script src="/static/js/counterup.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('.counter').counterUp({
+                delay: 10,
+                time: 1000
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+{% endblock %}

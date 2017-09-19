@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Open Contract App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library     <script src="../static/js/signUp.js"></script>-->
+
+
+    <script src="../static/js/jquery-3.1.1.js"></script>
+
+
+    <meta charset="utf-8">
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Bree+Serif|Itim|Rubik" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+
+
+
+
+                    </li>
+                    <li role="presentation"><a href="/userHome">Dashboard</a>
+                    </li>
+ 
+
+                     <li>
+                        <li role="presentation"><a href="/showSavedPlan">Plans</a>
+                        </li>
+
+                        <li>
+                            <li role="presentation"><a href="/showSavedTender">Tenders</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedAward">Awards</a>
+                            </li>
+
+
+                            <li role="presentation"><a href="/showSavedContract">Contracts</a>
+                            </li>
+
+
+
+                            <li>
+                                <li role="presentation"><a href="/logout">Logout</a>
+                                </li>
+
+
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center container">
+                    <h1 class="wow fadeIn"><span style="color:lightgreen;">NOC</span>Contract<span style="color:lightgreen;">Form</span></h1>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+  <br>
+        <br> {% if error %}
+        <p><strong>Error:</strong> {{ error }} {% endif %} {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+
+
+
+        <div class="jumbotron">
+
+
+
+
+            <form class="form-horizontal" action="/addContract" method="post">
+
+
+
+                <fieldset>
+
+
+
+                    <hr>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="ocid">OCID / Project ID</label>
+                        <div class="col-md-4">
+                            <input id="ocid" name="ocid" type="text" placeholder="OCID / Project ID" class="form-control input-md" required="">
+                            <span class="help-block"></span>
+                            <span class="help-block">Mandatory</span>
+
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contref">Contract Ref. No.</label>
+                        <div class="col-md-4">
+                            <input id="contref" name="contref" type="text" placeholder="Contract Ref. No." class="form-control input-md" required="">
+                                                        <span class="help-block">Mandatory</span>
+
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="title">Contract Title</label>
+                        <div class="col-md-4">
+                            <input id="title" name="title" type="text" placeholder="Contract Title" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="projdesc">Contract Description</label>
+                        <div class="col-md-4">
+                            <input id="projdesc" name="projdesc" type="text" placeholder="Contract Description" class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+
+
+                    
+
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="tag">Contract Status</label>
+                        <div class="col-md-4">
+                            <select id="status" name="status" class="form-control">
+            <option value="">Contract Status:</option>
+            <option value="Pending">Pending</option>
+          <option value="Active">Active</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Terminated">Unsuccessful</option>
+           </select>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="signeddate">Contract Signing Date</label>
+                        <div class="col-md-4">
+                            <input id="signeddate" name="signeddate" type="text" placeholder="Contract Signing Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contractstart">Contract Commencement Date</label>
+                        <div class="col-md-4">
+                            <input id="contractstart" name="contractstart" type="text" placeholder="Contract Commencement Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contractend">Expected Contract Completion Date</label>
+                        <div class="col-md-4">
+                            <input id="contractend" name="contractend" type="text" placeholder="Expected Contract Completion Date" class="form-control input-md" required="">
+                            <span class="help-block">YYYY-MM-DD</span>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <br>
+                    <center>
+                        <h4>Project Location</h4>
+                    </center>
+                    <br>
+                    <br>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="street">Street Address</label>
+                        <div class="col-md-4">
+                            <input id="street" name="street" type="text" placeholder="Street Address" class="form-control input-md" required="" onblur="myFunction()">
+                            <span class="help-block">11 Bankonle Road</span>
+                            <span class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="city">City</label>
+                        <div class="col-md-4">
+                            <input id="city" name="city" type="text" placeholder="City" class="form-control input-md" required="" onblur="myFunction()">
+                            <span class="help-block">Uyo</span>
+                            <span class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="state">State</label>
+                        <div class="col-md-4">
+                            <select id="state" name="state" class="form-control">
+            <option value="">Choose State:</option>
+            <option value="Abuja/FCT">Abuja</option>
+            <option value="Abia">Abia</option>
+            <option value="Adamawa">Adamawa</option>
+            <option value="Akwaibom">Akwa Ibom</option>
+            <option value="Anambra">Anambra</option>
+            <option value="Bauchi">Bauchi</option>
+            <option value="Bayelsa">Bayelsa</option>
+            <option value="Benue">Benue</option>
+            <option value="Borno">Borno</option>
+            <option value="Cross River">Cross River</option>
+            <option value="Delta">Delta</option>
+            <option value="Ebonyi">Ebonyi</option>
+            <option value="Edo">Edo</option>
+            <option value="Ekiti">Ekiti</option>
+            <option value="Enugu">Enugu</option>
+            <option value="Gombe">Gombe</option>
+            <option value="Imo">Imo</option>
+            <option value="Jigawa">Jigawa</option>
+            <option value="Kaduna">Kaduna</option>
+            <option value="Kano">Kano</option>
+            <option value="Katsina">Katsina</option>
+            <option value="Kebbi">Kebbi</option>
+            <option value="Kogi">Kogi</option>
+            <option value="Kwara">Kwara</option>
+            <option value="Lagos">Lagos</option>
+            <option value="Nassarawa">Nassarawa</option>
+            <option value="Niger">Niger</option>
+            <option value="Ogun">Ogun</option>
+            <option value="Ondo">Ondo</option>
+            <option value="Osun">Osun</option>
+            <option value="Oyo">Oyo</option>
+            <option value="Plateau">Plateau</option>
+            <option value="Rivers">Rivers</option>
+            <option value="Sokoto">Sokoto</option>
+            <option value="Taraba">Taraba</option>
+            <option value="Yobe">Yobe</option>
+            <option value="Zamfara">Zamfara</option>
+           </select>
+                            <span class="help-block">Mandatory</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="State">Country</label>
+                        <div class="col-md-4">
+                            <input id="Country" name="Country" type="text" value="Nigeria" class="form-control input-md" required="" readonly="readonly">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+                    <div class="form-group">
+                        <label for="txtPost">Upload (Contract document)</label>
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="contractupload" name="contractupload" multiple>
+                    </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <label for="txtPost">Upload (Contract Amendment)</label>
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="amendmentupload" name="amendmentupload" multiple>
+                    </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="txtPost">Upload (Implementation Plan)</label>
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="planupload" name="planupload" multiple>
+                    </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+
+                    </div>
+
+-->
+
+
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button style="width:600px" id="createContract" class="btn btn-lg btn-primary btn-block" type="submit">Submit Contract</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button style="width:600px" id="btnReset" class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+                        </div>
+                    </div>
+
+
+
+
+                </fieldset>
+
+
+
+            </form>
+
+
+
+
+
+
+        </div>
+
+
+
+        <footer class="footer">
+            <p>&copy; Company 2016</p>
+        </footer>
+
+    </div>
+
+
+ <script>
+function myFunction() {
+    var x = document.getElementById("street");
+    x.value = x.value.toUpperCase();
+
+     var y = document.getElementById("city");
+    y.value = y.value.toUpperCase();
+   
+
+    }
+  </script>
+    <!--
+ <script>
+$(function() {
+    $('input').keyup(function() {
+        city.value = city.value.toUpperCase();
+    });
+});
+
+</script>
+-->
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+
+.event-list {
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+.event-list > li {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 5px rgb(51, 51, 51);
+    box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+    padding: 0px;
+    margin: 0px 0px 20px;
+    display: none;
+}
+
+.event-list > li > time {
+    display: inline-block;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    background-color: #355555;;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.event-list > li:nth-child(even) > time {
+    background-color: #355555;;
+}
+
+.event-list > li > time > span {
+    display: none;
+}
+
+.event-list > li > time > .day {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.event-list > li time > .month {
+    display: block;
+    font-size: 16pt;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.event-list > li > img {
+    width: 100%;
+}
+
+.event-list > li > .info {
+    padding-top: 5px;
+    text-align: center;
+}
+
+.event-list > li > .info > .title {
+    font-size: 17pt;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.event-list > li > .info > .desc {
+    font-size: 13pt;
+    font-weight: 300;
+    margin: 0px;
+}
+
+.event-list > li > .info > ul,
+.event-list > li > .social > ul {
+    display: table;
+    list-style: none;
+    margin: 10px 0px 0px;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.event-list > li > .social > ul {
+    margin: 0px;
+}
+
+.event-list > li > .info > ul > li,
+.event-list > li > .social > ul > li {
+    display: table-cell;
+    cursor: pointer;
+    color: rgb(30, 30, 30);
+    font-size: 11pt;
+    font-weight: 300;
+    padding: 3px 0px;
+}
+
+.event-list > li > .info > ul > li > a {
+    display: block;
+    width: 100%;
+    color: rgb(30, 30, 30);
+    text-decoration: none;
+}
+
+.event-list > li > .social > ul > li {
+    padding: 0px;
+}
+
+.event-list > li > .social > ul > li > a, .event-list > li > .social > ul > li > .fa {
+    padding: 3px 0px;
+}
+
+.event-list > li > .info > ul > li:hover,
+.event-list > li > .social > ul > li:hover {
+    color: rgb(30, 30, 30);
+    background-color: rgb(200, 200, 200);
+}
+
+.facebook a,
+.twitter a,
+.google-plus a, .ocid-download i {
+    display: block;
+    width: 100%;
+    color: rgb(75, 110, 168) !important;
+}
+
+.twitter a {
+    color: rgb(79, 213, 248) !important;
+}
+
+.google-plus a {
+    color: rgb(221, 75, 57) !important;
+}
+
+.ocid-download i {
+    color: #a3c2c2 !important;
+}
+
+.facebook:hover a {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(75, 110, 168) !important;
+}
+
+.ocid-download:hover i {
+    color: rgb(255, 255, 255) !important;
+    background-color: #a3c2c2 !important;
+}
+
+.twitter:hover a {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(79, 213, 248) !important;
+}
+
+.google-plus:hover a {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(221, 75, 57) !important;
+}
+
+@media (min-width: 768px) {
+
+    .event-list > li {
+        position: relative;
+        display: none;
+        width: 100%;
+
+        padding: 0px;
+    }
+
+    .event-list > li > time,
+    .event-list > li > img {
+        display: inline-block;
+    }
+
+    .event-list > li > time,
+    .event-list > li > img {
+        width: 120px;
+        float: left;
+    }
+
+    .event-list > li > .info {
+        background-color: rgb(245, 245, 245);
+        overflow: hidden;
+    }
+
+    .event-list > li > time,
+    .event-list > li > img {
+        width: 120px;
+        height: 120px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .event-list > li > .info {
+        position: relative;
+        height: 120px;
+        text-align: left;
+        padding-right: 40px;
+    }
+
+    .event-list > li > .info > .title,
+    .event-list > li > .info > .desc {
+        padding: 0px 10px;
+    }
+
+    .event-list > li > .info > ul {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+
+    .event-list > li > .social {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        display: block;
+        width: 40px;
+        bottom: 0px;
+    }
+
+    .event-list > li > .social > ul {
+        border-left: 1px solid rgb(230, 230, 230);
+    }
+
+    .event-list > li > .social > ul > li {
+        display: block;
+        padding: 0px;
+    }
+
+    .event-list > li > .social > ul > li > a, .event-list > li > .social > ul > li > .fa {
+        display: block;
+        width: 40px;
+        padding: 10px 0px 9px;
+    }
+
+    .event-list > li, .event-list > li > time, .event-list > li > img, .event-list > li > .info, .event-list > li > .social {
+        height: auto;
+    }
+
+    .event-list > li > img, .event-list > li > .info {
+        width: 100%;
+    }
+}
+
+.subh {
+    color: darkgoldenrod;
+    font-weight: bolder;
+    font-family: monospace;
+    padding-left: 5px;
+}
+
+.info .info-footer {
+    color: #355555;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.info .info-footer .fa {
+    color: darkgoldenrod;
+    font-weight: bolder;
+    padding-right: 5px;
+}
+
+#loadMore {
+    padding: 10px;
+    text-align: center;
+    background-color: #33739E;
+    color: #fff;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: #fff;
+    box-shadow: 0 1px 1px #ccc;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+}
+
+#loadMore:hover {
+    background-color: #fff;
+    color: #33739E;
+}
+
+.svg-container, #chart {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.d3-tip {
+    font-size: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color: green;
+}
+
+.d3-tip span {
+    color: #355555;
+    font-size: 9px;
+    font-family: gothic;
+    font-weight: bolder;
+    text-align: center;
+    text-transform: capitalize;
+    padding-bottom: 0;
+}
+
+.svg-content {
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+}
+
+.svg-content > g {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    font-family: "Helvetica";
+}
+
+header {
+    height: 80px;
+}
+
+.percent {
+    position: absolute;
+    text-align: center;
+    font-size: 9px;
+    color: black;
+    margin-left: 30%;
+}
+
+.event_item {
+    display: none;
+}

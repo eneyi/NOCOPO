@@ -1,0 +1,168 @@
+<section style="position:relative;" id="press" class="pad-xl">
+    <div class='sidebar'>
+        <div class='heading' style="background:transparent;">
+            <h4 style="text-align:center; color:snow; font-family:'Montserrat', sans-serif; font-weight:bolder; font-size:18px; background:transparent;">Latest Contract Locations</h4>
+        </div>
+        <div id='listings' class='listings'></div>
+    </div>
+    <div id='map' class='map pad2' style="height:100%;">Locations</div>
+
+    <script>
+
+        var stores = {
+            "type": "FeatureCollection",
+
+            "features": {{mapdata | safe}}
+        };
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZW5leWkxIiwiYSI6ImNpdXhoYTdtaDAwMjgyb3IzZXM4MWNxZXEifQ.GybxLO04umgh-d0NCvNsBQ';
+        // This adds the map to your page
+        var map = new mapboxgl.Map({
+            // container id specified in the HTML
+            container: 'map',
+            // style URL
+            style: 'mapbox://styles/mapbox/streets-v9',
+            // initial position in [long, lat] format
+            center: [9.8665781, 8.3170981],
+            // initial zoom
+            zoom: 6.5
+        });
+        map.on('load', function(e) {
+            // Add the stores data as a source
+            map.addSource('places', {
+                type: 'geojson',
+                data: stores
+            });
+
+            // Add a layer to the map with styling rules to render the source
+            map.addLayer({
+                id: 'locations',
+                type: 'symbol',
+                source: 'places',
+                layout: {
+                    'icon-image': 'monument-15',
+                    'icon-allow-overlap': true
+                }
+            });
+        });
+
+        function flyToStore(currentFeature) {
+            map.flyTo({
+                center: currentFeature.geometry.coordinates,
+                zoom: 10
+            });
+        }
+
+        function createPopUp(currentFeature) {
+            var popUps = document.getElementsByClassName('mapboxgl-popup');
+            // Check if there is already a popup on the map and if so, remove it
+            if (popUps[0]) popUps[0].remove();
+
+            var popup = new mapboxgl.Popup({
+                    closeOnClick: false
+                })
+                .setLngLat(currentFeature.geometry.coordinates)
+                .setHTML('<h3>Contract Site</h3>' +
+                    '<h4>' + currentFeature.properties.crossStreet + '</h4>' +
+                    '<p class="mapboxadd" style="font-size:9px;text-align:center;color:#355555;font-weight:bolder;">' + currentFeature.properties.address + " " + currentFeature.properties.city + '</p>' +
+                    '<p class="mapboxadd" style="font-size:11px;text-align:center;color:#355555;font-weight:bolder;">' + currentFeature.properties.prog + '% Complete. </p>' + '<button class="btn btn-warning btn-sm mapboxexbtn" style="margin-left:23%;">Feedback</button>')
+                .addTo(map);
+        }
+
+        // This will let you use the .remove() function later on
+        if (!('remove' in Element.prototype)) {
+            Element.prototype.remove = function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            };
+        }
+
+
+        function buildLocationList(data) {
+            // Iterate through the list of stores
+            for (i = 0; i < data.features.length; i++) {
+                var currentFeature = data.features[i];
+                // Shorten data.feature.properties to just `prop` so we're not
+                // writing this long form over and over again.
+                var prop = currentFeature.properties;
+                // Select the listing container in the HTML and append a div
+                // with the class 'item' for each store
+                var listings = document.getElementById('listings');
+                var listing = listings.appendChild(document.createElement('div'));
+                listing.className = 'item';
+                listing.id = 'listing-' + i;
+
+                // Create a new link with the class 'title' for each store
+                // and fill it with the store address
+                var link = listing.appendChild(document.createElement('a'));
+
+                link.className = 'title';
+                link.dataPosition = i;
+                link.innerHTML = prop.crossStreet;
+
+                // Add an event listener for the links in the sidebar listing
+                link.addEventListener('click', function(e) {
+                    // Update the currentFeature to the store associated with the clicked link
+                    var currentFeature = stores.features[this.dataPosition];
+                    // 1. Fly to the point associated with the clicked link
+                    flyToStore(currentFeature);
+                    // 2. Close all other popups and display popup for clicked store
+                    createPopUp(currentFeature);
+                    // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+                    var activeItem = document.getElementsByClassName('active');
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('active');
+                    }
+                    this.parentNode.classList.add('active');
+                });
+                // Create a new div with the class 'details' for each store
+                // and fill it with the city and phone number
+                var details = listing.appendChild(document.createElement('div'));
+                details.innerHTML = prop.city;
+                if (prop.country) {
+                    details.innerHTML += ' &middot; ' + prop.country;
+                }
+            }
+        }
+
+
+        buildLocationList(stores);
+
+
+
+        // Add an event listener for when a user clicks on the map
+        map.on('click', function(e) {
+            // Query all the rendered points in the view
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['locations']
+            });
+            if (features.length) {
+                var clickedPoint = features[0];
+                // 1. Fly to the point
+                flyToStore(clickedPoint);
+                // 2. Close all other popups and display popup for clicked store
+                createPopUp(clickedPoint);
+                // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+                var activeItem = document.getElementsByClassName('active');
+                if (activeItem[0]) {
+                    activeItem[0].classList.remove('active');
+                }
+                // Find the index of the store.features that corresponds to the clickedPoint that fired the event listener
+                var selectedFeature = clickedPoint.properties.address;
+
+                for (var i = 0; i < stores.features.length; i++) {
+                    if (stores.features[i].properties.address === selectedFeature) {
+                        selectedFeatureIndex = i;
+                    }
+                }
+                // Select the correct list item using the found index and add the active class
+                var listing = document.getElementById('listing-' + selectedFeatureIndex);
+                listing.classList.add('active');
+            }
+        });
+    </script>
+    <!--
+      <script type="text/javascript" src="/static/js/plots/mapbox.js"></script>
+      -->
+</section>

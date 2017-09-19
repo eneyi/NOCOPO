@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Open Contract App</title>
+ 
+ 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+ 
+ 
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="p"><a href="/">Home</a>
+                    </li>
+                    <li role="presentation"><a href="/showSignin">Sign In</a>
+                    </li>
+                   
+                </ul>
+            </nav>
+            <h3 class="text-muted">Open Contract App</h3>
+        </div>
+ 
+
+
+ {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+        
+        <p>Do you want to <a href = "/showSignin">
+         <b>Sign In?</b></a></p>
+ 
+ 
+        <footer class="footer">
+            <p>&copy; Company 2016</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+</html>
